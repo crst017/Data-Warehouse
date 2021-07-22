@@ -26,15 +26,15 @@ async function init() {
         .catch( err => console.error('Error de conexion:', err) );
 
     await sequelize.query(tables.user.createTable);
-    // await sequelize.query(tables.user.createTable);
-    // await sequelize.query(tables.order.createTable);
-    // await sequelize.query(tables.item.createTable);
+    await sequelize.query(tables.region.createTable);
+    await sequelize.query(tables.country.createTable);
+    await sequelize.query(tables.city.createTable);
     // console.log('Tables created');
 
     await sequelize.query(tables.user.setValues);
-    // await sequelize.query(tables.product.setValues);
-    // await sequelize.query(tables.order.setValues);
-    // await sequelize.query(tables.item.setValues);
+    await sequelize.query(tables.region.setValues);
+    await sequelize.query(tables.country.setValues);
+    await sequelize.query(tables.city.setValues);
     // console.log('Records created');
 
     return sequelize
