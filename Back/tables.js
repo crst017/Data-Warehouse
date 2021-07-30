@@ -80,6 +80,7 @@ const city = {
     ('6', 'Florida'),
     ('6', 'Texas')`
 }
+
 const tables = { user , region , country , city}
 module.exports = tables
 

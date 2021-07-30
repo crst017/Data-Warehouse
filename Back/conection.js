@@ -29,21 +29,19 @@ async function init() {
     await sequelize.query(tables.region.createTable);
     await sequelize.query(tables.country.createTable);
     await sequelize.query(tables.city.createTable);
-    // console.log('Tables created');
+    console.log('Tables created');
 
     await sequelize.query(tables.user.setValues);
     await sequelize.query(tables.region.setValues);
     await sequelize.query(tables.country.setValues);
     await sequelize.query(tables.city.setValues);
-    // console.log('Records created');
+    console.log('Records created');
 
     return sequelize
 }
 
 module.exports = init;
 
-// ("administrador","administrador ","a@a.com",1234567,"Calle 1 No 2 - 3","21232f297a57a5a743894a0e4a801fc3","admin"),
-// 	("usuario",usuario","b@b.com",9876543,"Calle 5 No 6 - 7","ee11cbb19052e40b07aac0ca060c23ee","usuario")
 
 
 

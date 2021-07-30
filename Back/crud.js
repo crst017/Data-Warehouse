@@ -2,7 +2,8 @@ const md5 = require('md5');
 const moment = require('moment');
 const token = require('./token');
 const init = require('./conection');
-const { query } = require('express');
+const { restart } = require('nodemon');
+const { country } = require('./tables');
 
 let sequelize; 
 init().then( s => sequelize = s);
@@ -14,6 +15,7 @@ const existingID = async ( id, table ) => {
     if (data.length == 0) return false
     else return true
 }
+
 const user = {
     createUser : (req, res) => {
         const { username, fullname, email } = req.body;
@@ -135,7 +137,72 @@ const user = {
     }
 }
 
-const crud = { user } 
+const city = {
+    getCity : async ( req, res) => {
+        
+        const id = req.params.id;
+        const verifyID = await existingID( id, "dw_cmnl.city");
+        if ( !verifyID ) res.status(404).send('The city ID does not exist');
+
+        const city = await sequelize.query( `SELECT * FROM city WHERE id = ${id}`, {
+                type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(city[0]);
+    },
+    getCities : async ( req, res) => {
+        
+        const cities = await sequelize.query("SELECT * FROM city", { 
+            type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(cities);
+    },
+    createCity : (req, res) => {
+
+        const { country_id , name } = req.body;
+        
+        sequelize.query(
+        `INSERT INTO city ( country_id, name ) 
+        VALUES ( ${country_id}, "${name}" )`
+        )
+        .then((data) => res.status(201).send("City created successfully !"))
+        .catch((err) => {
+            console.log(err)
+            const error = err.original.errno = 1062 ? `The city "${name}" already exists.` : `The country id does not exist`;
+            res.status(400).send("Error: " + error)          
+        });
+    },
+    updateCity : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.city" );
+        if ( !verifyID ) res.status(404).send('The city ID does not exist');
+
+        const { country_id , name } = req.body;
+        
+        let queryString = `country_id = ${country_id} , name = "${name}"`;
+
+        sequelize.query( `UPDATE city SET ${queryString} WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(201).send('The city has been updated');
+            })
+            .catch( err => res.status(400).send("Error: " + err));
+    },
+    deleteCity : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.city" );
+        if ( !verifyID ) res.status(404).send('The ID does not exist'); 
+
+        sequelize.query ( `DELETE FROM city WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(200).send('The city has been deleted');
+            })
+            .catch( err => res.status(400).send(err.original))
+    }
+}
+const crud = { user , city } 
 
 module.exports = crud;
 
