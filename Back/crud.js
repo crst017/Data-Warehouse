@@ -2,8 +2,6 @@ const md5 = require('md5');
 const moment = require('moment');
 const token = require('./token');
 const init = require('./conection');
-const { restart } = require('nodemon');
-const { country } = require('./tables');
 
 let sequelize; 
 init().then( s => sequelize = s);
@@ -135,7 +133,7 @@ const user = {
             .then( data => res.status(404).send('User is inactive now'))
             .catch( err => res.status(400).send("Error: " + err));
     }
-}
+};
 
 const city = {
     getCity : async ( req, res) => {
@@ -166,8 +164,7 @@ const city = {
         )
         .then((data) => res.status(201).send("City created successfully !"))
         .catch((err) => {
-            console.log(err)
-            const error = err.original.errno = 1062 ? `The city "${name}" already exists.` : `The country id does not exist`;
+            const error = err.original.errno == 1062 ? `The city "${name}" already exists.` : `The country id does not exist`;
             res.status(400).send("Error: " + error)          
         });
     },
@@ -199,10 +196,142 @@ const city = {
                 if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
                 else res.status(200).send('The city has been deleted');
             })
-            .catch( err => res.status(400).send(err.original))
+            .catch( err => res.status(405).send(err.original))
     }
-}
-const crud = { user , city } 
+};
+
+const country = {
+    getCountry : async ( req, res) => {
+        
+        const id = req.params.id;
+        const verifyID = await existingID( id, "dw_cmnl.country");
+        if ( !verifyID ) res.status(404).send('The country ID does not exist');
+
+        const country = await sequelize.query( `SELECT * FROM country WHERE id = ${id}`, {
+                type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(country[0]);
+    },
+    getCountries : async ( req, res) => {
+        
+        const countries = await sequelize.query("SELECT * FROM country", { 
+            type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(countries);
+    },
+    createCountry : (req, res) => {
+
+        const { region_id , name } = req.body;
+        
+        sequelize.query(
+        `INSERT INTO country ( region_id, name ) 
+        VALUES ( ${region_id}, "${name}" )`
+        )
+        .then((data) => res.status(201).send("Country created successfully !"))
+        .catch((err) => {
+            const error = err.original.errno == 1062 ? `The country "${name}" already exists.` : `The region id does not exist`;
+            res.status(400).send("Error: " + error)          
+        });
+    },
+    updateCountry : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.country" );
+        if ( !verifyID ) res.status(404).send('The country ID does not exist');
+
+        const { region_id , name } = req.body;
+        
+        let queryString = `region_id = ${region_id} , name = "${name}"`;
+
+        sequelize.query( `UPDATE country SET ${queryString} WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(201).send('The country has been updated');
+            })
+            .catch( err => res.status(400).send("Error: " + err));
+    },
+    deleteCountry : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.country" );
+        if ( !verifyID ) res.status(404).send('The ID does not exist'); 
+
+        sequelize.query ( `DELETE FROM country WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(200).send('The country has been deleted');
+            })
+            .catch( err => res.status(405).send(err.original))
+    }
+};
+
+const region = {
+    getRegion : async ( req, res) => {
+        
+        const id = req.params.id;
+        const verifyID = await existingID( id, "dw_cmnl.region");
+        if ( !verifyID ) res.status(404).send('The region ID does not exist');
+
+        const region = await sequelize.query( `SELECT * FROM region WHERE id = ${id}`, {
+                type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(region[0]);
+    },
+    getRegions : async ( req, res) => {
+        
+        const regions = await sequelize.query("SELECT * FROM region", { 
+            type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(regions);
+    },
+    createRegion : (req, res) => {
+
+        const { name } = req.body;
+        
+        sequelize.query(
+        `INSERT INTO region ( name ) 
+        VALUES ( "${name}" )`
+        )
+        .then((data) => res.status(201).send("Region created successfully !"))
+        .catch((err) => {
+            let error = null;
+            if ( err.original.errno == 1062 ) error = `The region "${name}" already exists.`;
+            res.status(400).send("Error: " + error)          
+        });
+    },
+    updateRegion : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.region" );
+        if ( !verifyID ) res.status(404).send('The region ID does not exist');
+
+        const { name } = req.body;
+        
+        let queryString = `name = "${name}"`;
+
+        sequelize.query( `UPDATE region SET ${queryString} WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(201).send('The region has been updated');
+            })
+            .catch( err => res.status(400).send("Error: " + err));
+    },
+    deleteRegion : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.region" );
+        if ( !verifyID ) res.status(404).send('The ID does not exist'); 
+
+        sequelize.query ( `DELETE FROM region WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(200).send('The region has been deleted');
+            })
+            .catch( err => res.status(405).send(err.original))
+    }
+};
+
+const crud = { user , city , country , region } 
 
 module.exports = crud;
 

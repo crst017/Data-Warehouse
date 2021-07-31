@@ -36,6 +36,20 @@ app.post ( '/city' , crud.city.createCity );
 app.put ( '/city/:id' , crud.city.updateCity );
 app.delete ( '/city/:id' , crud.city.deleteCity)
 
+//Country endpoints
+app.get ( '/country/:id' , crud.country.getCountry );
+app.get ( '/countries' , crud.country.getCountries );
+app.post ( '/country' , crud.country.createCountry );
+app.put ( '/country/:id' , crud.country.updateCountry );
+app.delete ( '/country/:id' , crud.country.deleteCountry );
+
+//Region endpoints
+app.get ( '/region/:id' , crud.region.getRegion );
+app.get ( '/regions' , crud.region.getRegions );
+app.post ( '/region' , crud.region.createRegion );
+app.put ( '/region/:id' , crud.region.updateRegion );
+app.delete ( '/region/:id' , crud.region.deleteRegion );
+
 
 //Start the server
 app.listen(PORT, () => {
