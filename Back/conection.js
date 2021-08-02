@@ -31,6 +31,9 @@ async function init() {
     await sequelize.query(tables.country.createTable);
     await sequelize.query(tables.city.createTable);
     await sequelize.query(tables.company.createTable);
+    await sequelize.query(tables.contact.createTable);
+    await sequelize.query(tables.channel.createTable);
+    await sequelize.query(tables.channelDetail.createTable);
 
     console.log('Tables created');
 

@@ -104,7 +104,61 @@ const company = {
     `
 }
 
-const tables = { user , region , country , city , company }
+const contact = {
+    createTable:
+    `CREATE TABLE IF NOT EXISTS dw_cmnl.contact (
+        id INT NOT NULL AUTO_INCREMENT UNIQUE,
+        first_name VARCHAR(45) NOT NULL,
+        last_name VARCHAR(45) NOT NULL,
+        work_position VARCHAR(45) NOT NULL,
+        email VARCHAR(45) NOT NULL,
+        address VARCHAR(45) NOT NULL,
+        interest INT NOT NULL,
+        company_id INT NOT NULL,
+        city_id INT NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (company_id)
+        REFERENCES dw_cmnl.company (id),
+        FOREIGN KEY (city_id)
+        REFERENCES dw_cmnl.city (id)
+    )`,
+    setValues: 
+    `INSERT INTO dw_cmnl.company (name, address, email, telephone, city_id) 
+    VALUES 
+    ('Softtek', 'Softtek avenue 1220', 'softtek@company.com', '4206700', 12),
+    ('Globant', 'Globant avenue 2002', 'globant@company.com', '4206701', 1),
+    ('Rappi', 'Rappi avenue 1371', 'rappi@company.com', '4206702', 3),
+    ('Mercado Libre', 'Mercado libre avenue 1411', 'mercadolib@company.com', '4206703', 1)
+    `
+}
+
+const channel = {
+    createTable :
+    `CREATE TABLE IF NOT EXISTS dw_cmnl.channel (
+        id INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(45) NOT NULL UNIQUE,
+        PRIMARY KEY (id)
+    )`,
+    setValues:``
+}
+
+const channelDetail = {
+    createTable : `
+    CREATE TABLE IF NOT EXISTS dw_cmnl.channel_detail (
+        id INT NOT NULL AUTO_INCREMENT UNIQUE,
+        contact_id INT NOT NULL,
+        channel_id INT NOT NULL,
+        data VARCHAR(45) NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (contact_id)
+        REFERENCES dw_cmnl.contact (id),
+        FOREIGN KEY (channel_id)
+        REFERENCES dw_cmnl.channel (id)      
+    )`
+}
+
+
+const tables = { user , region , country , city , company , contact , channel , channelDetail }
 module.exports = tables
 
 
