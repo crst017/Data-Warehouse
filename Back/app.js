@@ -50,6 +50,13 @@ app.post ( '/region' , crud.region.createRegion );
 app.put ( '/region/:id' , crud.region.updateRegion );
 app.delete ( '/region/:id' , crud.region.deleteRegion );
 
+//Company endpoints
+app.get ( '/company/:id' , crud.company.getCompany );
+app.get ( '/companies' , crud.company.getCompanies );
+app.post ( '/company' , crud.company.createCompany );
+app.put ( '/company/:id' , crud.company.updateCompany );
+app.delete ( '/company/:id' , crud.company.deleteCompany );
+
 
 //Start the server
 app.listen(PORT, () => {

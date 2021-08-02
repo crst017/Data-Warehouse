@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 const Sequelize = require('sequelize');
+const { company } = require('./tables');
 const tables = require('./tables');
 
 const data = { 
@@ -29,12 +30,16 @@ async function init() {
     await sequelize.query(tables.region.createTable);
     await sequelize.query(tables.country.createTable);
     await sequelize.query(tables.city.createTable);
+    await sequelize.query(tables.company.createTable);
+
     console.log('Tables created');
 
     await sequelize.query(tables.user.setValues);
     await sequelize.query(tables.region.setValues);
     await sequelize.query(tables.country.setValues);
     await sequelize.query(tables.city.setValues);
+    await sequelize.query(tables.company.setValues);
+
     console.log('Records created');
 
     return sequelize

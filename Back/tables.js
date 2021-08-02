@@ -81,7 +81,30 @@ const city = {
     ('6', 'Texas')`
 }
 
-const tables = { user , region , country , city}
+const company = {
+    createTable:
+    `CREATE TABLE IF NOT EXISTS dw_cmnl.company (
+        id INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(45) NOT NULL UNIQUE,
+        address VARCHAR(45) NOT NULL,
+        email VARCHAR(45) NOT NULL,
+        telephone VARCHAR(45) NOT NULL,
+        city_id INT NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (city_id)
+        REFERENCES dw_cmnl.city (id)
+    )`,
+    setValues: 
+    `INSERT INTO dw_cmnl.company (name, address, email, telephone, city_id) 
+    VALUES 
+    ('Softtek', 'Softtek avenue 1220', 'softtek@company.com', '4206700', 12),
+    ('Globant', 'Globant avenue 2002', 'globant@company.com', '4206701', 1),
+    ('Rappi', 'Rappi avenue 1371', 'rappi@company.com', '4206702', 3),
+    ('Mercado Libre', 'Mercado libre avenue 1411', 'mercadolib@company.com', '4206703', 1)
+    `
+}
+
+const tables = { user , region , country , city , company }
 module.exports = tables
 
 

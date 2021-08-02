@@ -331,7 +331,91 @@ const region = {
     }
 };
 
-const crud = { user , city , country , region } 
+const company = {
+    getCompany : async ( req, res) => {
+ 
+        const id = req.params.id;
+        const verifyID = await existingID( id, "dw_cmnl.company");
+        if ( !verifyID ) res.status(404).send('The company ID does not exist');
+
+        const company = await sequelize.query( `
+        SELECT company.id, company.name, company.address, company.email, company.telephone, country.name as country, city.name as city
+            FROM company, country, city 
+            WHERE company.city_id = city.id 
+            AND city.country_id = country.id
+            AND company.id = ${id}
+        `, 
+        { type: sequelize.QueryTypes.SELECT });
+
+        res.status(200).json(company[0]);
+    },
+    getCompanies : async ( req, res) => {
+
+        const companies = await sequelize.query( `
+        SELECT company.id, company.name, company.address, company.email, company.telephone, country.name as country, city.name as city
+            FROM company, country, city 
+            WHERE company.city_id = city.id 
+            AND city.country_id = country.id
+        `, 
+        { type: sequelize.QueryTypes.SELECT });
+
+        res.status(200).json(companies);
+    },
+    createCompany : (req, res) => {
+
+        const { name, address, email, telephone, city_id } = req.body;
+        
+        sequelize.query(
+        `INSERT INTO dw_cmnl.company (name, address, email, telephone, city_id) 
+        VALUES 
+        ('${name}', '${address}', '${email}', '${telephone}', ${city_id})`
+        )
+        .then((data) => res.status(201).send("Company registered successfully !"))
+        .catch((err) => {
+            let error = null;
+            if ( err.original.errno == 1062 ) error = `The company "${name}" already exists.`;
+            res.status(400).send("Error: " + error)          
+        });
+    },
+    updateCompany : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.company" );
+        if ( !verifyID ) res.status(404).send('The company ID does not exist');
+
+        const { name, address, email, telephone, city_id } = req.body;
+    
+        let queryString = `
+            name = "${name}",
+            address = "${address}",
+            email = "${email}",
+            telephone = "${telephone}",
+            city_id = "${city_id}"
+        `;
+
+        sequelize.query( `UPDATE company SET ${queryString} WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(201).send('The company has been updated');
+            })
+            .catch( err => res.status(400).send("Error: " + err));
+    },
+    deleteCompany : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.company" );
+        if ( !verifyID ) res.status(404).send('The company ID does not exist'); 
+
+        sequelize.query ( `DELETE FROM company WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(200).send('The company has been deleted');
+            })
+            .catch( err => res.status(405).send(err.original))
+    }
+}
+
+const crud = { user , city , country , region , company } 
 
 module.exports = crud;
 
