@@ -2,7 +2,6 @@ const md5 = require('md5');
 const moment = require('moment');
 const token = require('./token');
 const init = require('./conection');
-const { channelDetail } = require('./tables');
 
 let sequelize; 
 init().then( s => sequelize = s);
@@ -538,16 +537,123 @@ const contact = {
             .catch( err => res.status(405).send(err.original))
     }, 
     getContact : async ( req, res ) => {
-        //TO DO
-        // SELECT first_name, email, address, interest
-        // FROM contact
-        // WHERE address LIKE '%S%'
-        // OR email LIKE '%U%'
+        
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.contact" );
+        if ( !verifyID ) res.status(404).send('The contact ID does not exist');
+
+        let contact = {};
+        try {
+            const contactDetails = await sequelize.query(`
+                SELECT contact.first_name, contact.last_name, contact.work_position, contact.email, contact.address, contact.interest, 
+                        company.name AS company, 
+                        region.name AS region,
+                        country.name AS country,
+                        city.name AS city
+                FROM    dw_cmnl.contact AS contact, 
+                        dw_cmnl.company AS company, 
+                        dw_cmnl.city AS city,
+                        dw_cmnl.country AS country, 
+                        dw_cmnl.region AS region
+                WHERE contact.city_id = city.id
+                AND city.country_id = country.id
+                AND country.region_id = region.id 
+                AND contact.company_id = company.id
+                AND contact.id = ${id}`, 
+                { type: sequelize.QueryTypes.SELECT }
+            );
+
+            contact = contactDetails[0];
+
+            const contactChannels = await sequelize.query(`
+            SELECT 
+            channel.name AS channel,
+                channel_detail.data,
+                channel_detail.preference
+            FROM 
+                dw_cmnl.channel_detail AS channel_detail,
+                dw_cmnl.channel AS channel,
+                dw_cmnl.contact AS contact
+            WHERE channel_detail.contact_id = contact.id
+            AND channel_detail.channel_id = channel.id
+            AND contact.id = ${id}`, 
+            { type: sequelize.QueryTypes.SELECT }
+            );
+            contact.channels = contactChannels;
+        } catch (error) {
+            res.status(400).send(error.original);
+        }
+        res.status(200).json(contact);
+    },
+    getAllContacts : async ( req , res ) => {
+        
+        try {
+            const contacts = await sequelize.query(`
+                SELECT 
+                    contact.first_name, contact.last_name, contact.work_position, contact.interest, 
+                    company.name AS company, 
+                    region.name AS region,
+                    country.name AS country
+                FROM    
+                    dw_cmnl.contact AS contact, 
+                    dw_cmnl.company AS company, 
+                    dw_cmnl.city AS city,
+                    dw_cmnl.country AS country, 
+                    dw_cmnl.region AS region
+                WHERE contact.city_id = city.id
+                AND city.country_id = country.id
+                AND country.region_id = region.id 
+                AND contact.company_id = company.id`,
+                { type: sequelize.QueryTypes.SELECT }
+            );
+            res.status(200).send(contacts);
+
+        } catch (error) {
+            res.status(400).send(error.original);
+        }
+    },
+    searchContacts : async ( req , res ) => {
+
+        const word = req.params.word;
+
+        try {
+            const results = await sequelize.query(`
+            SELECT 
+                contact.first_name, contact.last_name, contact.work_position, contact.interest, 
+                company.name AS company, 
+                region.name AS region,
+                country.name AS country
+            FROM    
+                dw_cmnl.contact AS contact, 
+                dw_cmnl.company AS company, 
+                dw_cmnl.city AS city,
+                dw_cmnl.country AS country, 
+                dw_cmnl.region AS region
+            WHERE ( 
+                contact.city_id = city.id
+            AND city.country_id = country.id
+            AND country.region_id = region.id 
+            AND contact.company_id = company.id 
+            )
+            AND ( 
+                contact.first_name LIKE '%${word}%'
+            OR contact.last_name LIKE '%${word}%'
+            OR contact.work_position LIKE '%${word}%'
+            OR contact.interest LIKE '%${word}%'
+            OR company.name LIKE '%${word}%'
+            OR region.name LIKE '%${word}%'
+            OR country.name LIKE '%${word}%'
+            )`,
+            { type: sequelize.QueryTypes.SELECT }
+            );
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(400).send(error.original);
+        }
     }
 }
-
-
+    
 const crud = { user , city , country , region , company , contact} 
 
 module.exports = crud;
-
+    
