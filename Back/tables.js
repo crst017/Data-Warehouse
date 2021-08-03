@@ -123,13 +123,12 @@ const contact = {
         REFERENCES dw_cmnl.city (id)
     )`,
     setValues: 
-    `INSERT INTO dw_cmnl.company (name, address, email, telephone, city_id) 
+    `INSERT INTO dw_cmnl.contact (first_name, last_name, work_position, email, address, interest, company_id, city_id) 
     VALUES 
-    ('Softtek', 'Softtek avenue 1220', 'softtek@company.com', '4206700', 12),
-    ('Globant', 'Globant avenue 2002', 'globant@company.com', '4206701', 1),
-    ('Rappi', 'Rappi avenue 1371', 'rappi@company.com', '4206702', 3),
-    ('Mercado Libre', 'Mercado libre avenue 1411', 'mercadolib@company.com', '4206703', 1)
-    `
+    ('cristian', 'navarro', 'web developer', 'crist@example.com', 'cris avenue 123', 75, 2, 3),
+    ('andres', 'gomez', 'ui/ux designer', 'andres@example.com', 'andres avenue 123', 50, 4, 11),
+    ('paula', 'sanchez', 'human resources', 'paula@example.com', 'paula avenue 123', 100, 1, 13),
+    ('camila', 'ramirez', 'security engineer', 'camila@example.com', 'camila avenue 123', 25, 3, 7)`
 }
 
 const channel = {
@@ -139,7 +138,16 @@ const channel = {
         name VARCHAR(45) NOT NULL UNIQUE,
         PRIMARY KEY (id)
     )`,
-    setValues:``
+    setValues:
+    `INSERT INTO dw_cmnl.channel (name) 
+    VALUES 
+    ('telephone'),
+    ('email'),
+    ('whatsapp'),
+    ('instagram'),
+    ('twitter'),
+    ('facebook'),
+    ('linkedin')`
 }
 
 const channelDetail = {
@@ -149,12 +157,24 @@ const channelDetail = {
         contact_id INT NOT NULL,
         channel_id INT NOT NULL,
         data VARCHAR(45) NOT NULL,
+        preference VARCHAR(45) NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (contact_id)
         REFERENCES dw_cmnl.contact (id),
         FOREIGN KEY (channel_id)
         REFERENCES dw_cmnl.channel (id)      
-    )`
+    )`,
+    setValues : 
+    `
+    INSERT INTO dw_cmnl.channel_detail (contact_id, channel_id, data, preference) 
+    VALUES 
+    (1, 1, '4405060', 'Sin preferencia'),
+    (1, 4, 'cristian_instagram', 'Canal favorito'),
+    (2, 5, 'andres_twitter', 'Canal favorito'),
+    (3, 6, 'paula_facebook', 'No molestar'),
+    (3, 7, 'paula_linkedin', 'Sin preferencia'),
+    (3, 3, '4405061', 'Sin preferencia'),
+    (4, 2, 'camila@example.com', 'Canal favorito')`
 }
 
 

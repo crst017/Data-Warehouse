@@ -42,6 +42,9 @@ async function init() {
     await sequelize.query(tables.country.setValues);
     await sequelize.query(tables.city.setValues);
     await sequelize.query(tables.company.setValues);
+    await sequelize.query(tables.contact.setValues);
+    await sequelize.query(tables.channel.setValues);
+    await sequelize.query(tables.channelDetail.setValues);
 
     console.log('Records created');
 

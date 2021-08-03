@@ -57,6 +57,11 @@ app.post ( '/company' , crud.company.createCompany );
 app.put ( '/company/:id' , crud.company.updateCompany );
 app.delete ( '/company/:id' , crud.company.deleteCompany );
 
+//Contact endpoints
+app.post ( '/contact' , crud.contact.createContact );
+app.put ( '/contact/:id' , crud.contact.updateContact );
+app.delete ( '/contact/:id' , crud.contact.deleteContact );
+app.get ( '/contact/:id' , crud.contact.getContact );
 
 //Start the server
 app.listen(PORT, () => {

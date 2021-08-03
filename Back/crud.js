@@ -2,6 +2,7 @@ const md5 = require('md5');
 const moment = require('moment');
 const token = require('./token');
 const init = require('./conection');
+const { channelDetail } = require('./tables');
 
 let sequelize; 
 init().then( s => sequelize = s);
@@ -415,7 +416,138 @@ const company = {
     }
 }
 
-const crud = { user , city , country , region , company } 
+const contact = {
+    createContact : async ( req , res ) => {
+        
+        const { first_name, last_name, work_position, email, address, interest, company_id, city_id, channels} = req.body;
+        
+        try {
+            await sequelize.query(
+                `INSERT INTO dw_cmnl.contact (first_name, last_name, work_position, email, address, interest, company_id, city_id) 
+                VALUES (
+                    '${first_name}', 
+                    '${last_name}', 
+                    '${work_position}', 
+                    '${email}', 
+                    '${address}', 
+                    '${interest}', 
+                     ${company_id}, 
+                     ${city_id})`
+                );
+        } catch (error) {
+            res.status(400).send("Error: " + error);
+        }
+
+        const contact_id = await sequelize.query(
+            `SELECT id FROM dw_cmnl.contact ORDER BY id DESC LIMIT 1`,
+            {type: sequelize.QueryTypes.SELECT}
+        );
+
+        channels.map( channel => {
+            sequelize.query(`
+            INSERT INTO dw_cmnl.channel_detail (contact_id, channel_id, data, preference) 
+            VALUES ( 
+                ${contact_id[0].id},
+                ${channel.channel_id}, 
+                '${channel.data}', 
+                '${channel.preference}')`
+            )
+            .then( data => console.log(`Channel ${channel.channel_id} successfully asociated`))
+            .catch( err => res.status(400).send("Error: " + err))
+        });
+        res.status(201).send("Contact successfully registered!")
+    },
+    updateContact : async ( req , res ) => {
+
+        const contact_id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( contact_id, "dw_cmnl.contact" );
+        if ( !verifyID ) res.status(404).send('The contact ID does not exist');
+
+        const { first_name, last_name, work_position, email, address, interest, company_id, city_id, channels} = req.body;
+        
+        try {
+            await sequelize.query(
+                `UPDATE dw_cmnl.contact  
+                SET first_name = '${first_name}', 
+                    last_name = '${last_name}', 
+                    work_position = '${work_position}', 
+                    email = '${email}', 
+                    address = '${address}', 
+                    interest = '${interest}', 
+                    company_id = ${company_id}, 
+                    city_id = ${city_id}
+                WHERE id = ${contact_id}`
+            );
+        } catch (error) {
+            res.status(400).send("Error: " + error);
+        }
+        
+        // Get existing channels, to compare with the new ones
+        const existingChannels = await sequelize.query(`
+            SELECT channel_id, data, preference 
+                FROM dw_cmnl.channel_detail
+                WHERE contact_id = ${contact_id} ORDER BY channel_id ASC`,
+            {type: sequelize.QueryTypes.SELECT}
+        );
+
+        const newChannels = channels;
+        for (const newChannel of newChannels ) {
+            
+            const repeatedChannel = existingChannels.find( eChannel => 
+                eChannel.channel_id == newChannel.channel_id
+            );
+
+            // If newChannel doesn't exist (not repeated), add the new channel for the current contact id 
+            if (!repeatedChannel) {  
+                
+                sequelize.query(`
+                INSERT INTO dw_cmnl.channel_detail (contact_id, channel_id, data, preference) 
+                VALUES ( 
+                    '${contact_id}',
+                    '${newChannel.channel_id}', 
+                    '${newChannel.data}', 
+                    '${newChannel.preference}')`
+                )
+                .then( data => console.log(`Channel ${newChannel.channel_id} info successfully asociated`))
+                .catch( err => res.status(400).send("Error: " + err))
+            } else { // newChannel exists, so modify it
+                
+                sequelize.query(`
+                UPDATE dw_cmnl.channel_detail 
+                SET data ='${newChannel.data}', 
+                    preference = '${newChannel.preference}'
+                WHERE contact_id = ${contact_id} AND channel_id = ${newChannel.channel_id}`
+                )
+                .then( data => console.log(`Channel ${newChannel.channel_id} info successfully modified`))
+                .catch( err => res.status(400).send("Error: " + err))
+            }      
+        }
+        res.status(201).send("Contact successfully registered!")
+    },
+    deleteContact : async ( req , res ) => {
+
+        const id = req.params.id ? req.params.id : null;
+        const verifyID = await existingID( id, "dw_cmnl.contact" );
+        if ( !verifyID ) res.status(404).send('The contact ID does not exist'); 
+
+        sequelize.query ( `DELETE FROM contact WHERE id = ${id}`)
+            .then( data => {
+                if (data[0].affectedRows === 0) res.status(404).send('No changes were made');
+                else res.status(200).send('The contact has been deleted');
+            })
+            .catch( err => res.status(405).send(err.original))
+    }, 
+    getContact : async ( req, res ) => {
+        //TO DO
+        // SELECT first_name, email, address, interest
+        // FROM contact
+        // WHERE address LIKE '%S%'
+        // OR email LIKE '%U%'
+    }
+}
+
+
+const crud = { user , city , country , region , company , contact} 
 
 module.exports = crud;
 
