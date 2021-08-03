@@ -62,6 +62,8 @@ app.post ( '/contact' , crud.contact.createContact );
 app.put ( '/contact/:id' , crud.contact.updateContact );
 app.delete ( '/contact/:id' , crud.contact.deleteContact );
 app.get ( '/contact/:id' , crud.contact.getContact );
+app.get ( '/contacts' , crud.contact.getAllContacts );
+app.get ( '/search/:word' , crud.contact.searchContacts );
 
 //Start the server
 app.listen(PORT, () => {
