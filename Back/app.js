@@ -4,12 +4,14 @@ const expressJwt = require('express-jwt');
 const crud = require('./crud');
 const verify = require('./middlewares');
 const cors = require('cors');
+
 //Express instance
 const app = express();
 const jwtKey = "password";
 
 //Global middlewares
 app.use(express.json()); 
+app.use(cors());
 app.use(expressJwt({ 
 	secret :jwtKey, 
 	algorithms: ['HS256'] 
