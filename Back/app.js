@@ -3,7 +3,7 @@ const express = require("express");
 const expressJwt = require('express-jwt');
 const crud = require('./crud');
 const verify = require('./middlewares');
-
+const cors = require('cors');
 //Express instance
 const app = express();
 const jwtKey = "password";
