@@ -1,10 +1,9 @@
 const API = 'http://localhost:3000/user/login';
-// import axios from 'axios';
 
-const logIn = async( loginInfo ) => {
+const logIn = async( username , password ) => {
 
     try {
-        const response = await axios.post( API , loginInfo );
+        const response = await axios.post( API , { username , password } );
         return response
     } catch ( error ) {
         return error.response;       
