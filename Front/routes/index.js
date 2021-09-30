@@ -1,5 +1,4 @@
-// import Header from '../templates/Header.js';
-// import axios from 'axios';
+import Header from '../templates/Header.js';
 import LogIn from '../pages/LogIn.js';
 
 // import getHash from '../utils/getHash.js';
@@ -16,8 +15,10 @@ const router = async () => {
     const header = null || document.querySelector('header');
     const content = null || document.querySelector('.content');
 
-    const inner = await LogIn();
-    content.appendChild(inner);
+    
+    header.innerHTML = Header();
+    const innerLogin = await LogIn();
+    content.appendChild(innerLogin);
 
     // content.innerHTML = await LogIn();
     // let hash = getHash();

@@ -1,4 +1,6 @@
 import loginUser from '../utils/loginUser.js';
+import Header from '../templates/Header.js';
+import createMenu from '../utils/createMenu.js';
 
 const LogIn = async () => {
 
@@ -7,10 +9,12 @@ const LogIn = async () => {
         e.preventDefault();
         const username = document.querySelector('#inputUsername').value;
         const password = document.querySelector('#inputPassword').value;
-        const response = await loginUser( {username, password});
-
-        response.status !== 200 ? console.log("swal de mal"+ response.data) : console.log("swal de bien"+ response.data);
-
+        const response = await loginUser( username, password );
+        
+        if ( response.status === 200 ) {
+            sessionStorage.setItem( 'token' , response.data);
+            createMenu();
+        }
     }
 
     let form = document.createElement('form');
@@ -18,14 +22,14 @@ const LogIn = async () => {
 
     form.innerHTML = `
         <div class="mb-3">
-            <label for="inputUsername" class="form-label">Username</label>
+            <label for="inputUsername" class="form-label">Usuario</label>
             <input type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-            <label for="inputPassword" class="form-label">Password</label>
+            <label for="inputPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="inputPassword">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>    
+        <button type="submit" class="btn btn-primary">Ingresar</button>    
     `;
    
     form.addEventListener( 'submit' , login );
