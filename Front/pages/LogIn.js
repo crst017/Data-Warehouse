@@ -1,7 +1,4 @@
 import loginUser from '../utils/loginUser.js';
-import Header from '../templates/Header.js';
-import createMenu from '../utils/createMenu.js';
-
 const LogIn = async () => {
 
     const login =  async (e) => {
@@ -13,7 +10,7 @@ const LogIn = async () => {
         
         if ( response.status === 200 ) {
             sessionStorage.setItem( 'token' , response.data);
-            createMenu();
+            window.location.hash = 'home';
         }
     }
 
@@ -33,7 +30,7 @@ const LogIn = async () => {
     `;
    
     form.addEventListener( 'submit' , login );
-    return form;
+    return form
 };
 
 export default LogIn

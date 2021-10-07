@@ -1,30 +1,30 @@
 import Header from '../templates/Header.js';
 import LogIn from '../pages/LogIn.js';
+import Home from '../pages/Home.js';
 
-// import getHash from '../utils/getHash.js';
-// import resolveRoutes from '../utils/resolveRoutes.js';
+import getHash from '../utils/getHash.js';
 
-// const routes = {
-//     '/': Home,
-//     '/:id': Character,
-//     '/contact': 'Contact'
-// }
+const routes = {
+    '/': LogIn,
+    'home': Home,
+    // '/:id': Character,
+    // '/contact': 'Contact'
+}
 
 const router = async () => {
 
     const header = null || document.querySelector('header');
     const content = null || document.querySelector('.content');
+    content.innerHTML = null;
 
-    
-    header.innerHTML = Header();
-    const innerLogin = await LogIn();
-    content.appendChild(innerLogin);
+    header.innerHTML = Header().outerHTML;  // 
+    let route = getHash();
+    let render = routes[route] ? routes[route] : console.log("nelson");
+    render = await render();
 
-    // content.innerHTML = await LogIn();
-    // let hash = getHash();
-    // let route = await resolveRoutes(hash);
-    // let render = routes[route] ? routes[route] : Error404;
-    // content.innerHTML = await render();
+    typeof(render) === 'string' ? 
+        content.innerHTML = render :    // Render returns a string ... Just html
+        content.appendChild(render);    // Render returns an object ... Html with binded events
 }
 
 export default router;
