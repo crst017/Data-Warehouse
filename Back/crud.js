@@ -97,7 +97,7 @@ const user = {
     // },
     getAllUsers : async (req, res) => {
 
-        const users = await sequelize.query("SELECT username, fullname, email, role, active FROM user", { 
+        const users = await sequelize.query("SELECT username, fullname, email, role, active FROM user WHERE active = 'Y'", { 
             type: sequelize.QueryTypes.SELECT
         });
         res.status(200).json(users);
