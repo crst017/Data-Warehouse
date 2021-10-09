@@ -105,7 +105,7 @@ const CreateUser = () => {
                 </div>
 
                 <div class="modal-buttons">
-                <button id="create-user">Guardar usuario</button>  
+                <button id="create-user" class="save">Guardar usuario</button>  
                 </div>
             </section>
         </form>
