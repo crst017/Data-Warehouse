@@ -1,12 +1,15 @@
 import Header from '../templates/Header.js';
 import LogIn from '../pages/LogIn.js';
-import Home from '../pages/Home.js';
+import Users from '../pages/Users.js';
+import CreateUser from '../templates/CreateUser.js';
 
 import getHash from '../utils/getHash.js';
 
 const routes = {
     '/': LogIn,
-    'home': Home,
+    'home': Users,
+    'users': Users,
+    // 'modal-user': CreateUser,
     // '/:id': Character,
     // '/contact': 'Contact'
 }
