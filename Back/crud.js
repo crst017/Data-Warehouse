@@ -31,11 +31,11 @@ const user = {
                 _password : password, 
                 _role : role
                 },
-              }
+            }
         )
         .then((data) => res.status(201).send("User created successfully !"))
         .catch((err) => {
-            const error = err.original.errno = 1062 ? `The username "${username}" is already in use.` : err;
+            const error = err.original.errno = 1062 ? `The user "${username}" is already registered.` : err;
             res.status(400).send("Error: " + error)          
         });
     },
@@ -82,22 +82,22 @@ const user = {
     //     });
     //     res.status(200).json(loggedUser[0])
     // },
-    // getUser : async (req, res) => {
+    getUser : async (req, res) => {
 
-    //     const id = req.params.id;
-    //     const userInfo = await sequelize.query("SELECT username, fullname, email, telephone, address FROM user WHERE id = :_id", { 
-    //         type: sequelize.QueryTypes.SELECT ,
-    //         replacements : {
-    //             _id : id
-    //         }
-    //     });
+        const id = req.params.id;
+        const userInfo = await sequelize.query("SELECT id, username, fullname, email, role, active FROM user WHERE id = :_id AND active = 'Y' " , { 
+            type: sequelize.QueryTypes.SELECT ,
+            replacements : {
+                _id : id
+            }
+        });
 
-    //     if (userInfo.length === 0) res.status(404).send('The user id does not exist');
-    //     else res.status(200).json(userInfo[0]);
-    // },
+        if (userInfo.length === 0) res.status(404).send('The user id does not exist');
+        else res.status(200).json(userInfo[0]);
+    },
     getAllUsers : async (req, res) => {
 
-        const users = await sequelize.query("SELECT username, fullname, email, role, active FROM user WHERE active = 'Y'", { 
+        const users = await sequelize.query("SELECT id, username, fullname, email, role, active FROM user WHERE active = 'Y'", { 
             type: sequelize.QueryTypes.SELECT
         });
         res.status(200).json(users);
