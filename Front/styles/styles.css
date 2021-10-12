@@ -1,9 +1,30 @@
+@import url("../styles/icons.css");
 * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
   font-family: "Open Sans", "sans-serif";
   font-size: 13px;
+}
+
+h2 {
+  color: black;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+button {
+  height: 42px;
+  width: 180px;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
 }
 
 nav {
@@ -57,6 +78,74 @@ nav .navbar-brand {
   font-weight: 700;
 }
 
+.title-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.title-content .add-button {
+  background-color: #0462BA;
+  color: white;
+}
+
+.table {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.table-header, .table-row {
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+.table-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.table-row:nth-last-child(1) {
+  border-bottom: none;
+}
+.table.row {
+  height: 100%;
+}
+.table .actions {
+  width: 82px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.table .actions * {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.table .actions .icon-mode_edit, .table .actions .icon-delete {
+  display: none;
+  font-size: 20px;
+}
+.table-row:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.table-row:hover .actions {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+.table-row:hover .actions > * {
+  display: flex;
+}
+.table-row:hover .actions > .icon-dots-three-horizontal {
+  display: none;
+}
+.table span {
+  font-weight: 500;
+  padding-left: 16px;
+}
+
 input {
   outline: none;
 }
@@ -97,6 +186,9 @@ input {
   font-weight: 700;
   color: white;
   margin: 0px;
+}
+.modal-head .icon-close {
+  font-weight: 400;
 }
 
 .form-header {
