@@ -6,6 +6,57 @@
   font-size: 13px;
 }
 
+nav {
+  background-color: #0462BA;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+nav ul {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+nav ul li {
+  height: 100%;
+  width: 72px;
+  margin-left: 17px;
+  margin-right: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #0462BA;
+  cursor: pointer;
+}
+nav ul li:hover {
+  border-bottom: 2px solid white;
+}
+nav ul li:hover > a {
+  font-weight: 700;
+}
+nav ul li.d-none {
+  display: none;
+}
+nav ul li.li-regions {
+  width: 110px;
+}
+nav ul li.li-logout {
+  width: 50px;
+}
+nav a {
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+nav a:hover {
+  color: white;
+}
+nav .navbar-brand {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+}
+
 input {
   outline: none;
 }

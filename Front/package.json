@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node ../Back/app.js"
+    "server": "node ../Back/app.js",
+    "scss": "sass scss/styles.scss styles/styles.css"
   },
   "author": "Cristian Navarro León <cristiannl.0117@gmail.com>",
   "license": "ISC",
