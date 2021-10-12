@@ -2,7 +2,7 @@ import getToken from './getToken.js';
 
 const API = 'http://localhost:3000/user';
 const allUsers = 's';
-const userID = '/:id';
+const userID = '/';
 const newUser = '/register';
 
 const headers = {
@@ -20,8 +20,6 @@ const getAllUsers = async () => {
 
 const createUser = async ( data ) => {
     try {   
-        console.log(data)
-        console.log(headers)
         const response = await axios.post( API + newUser , data , { headers } );
         return response
     } catch ( error ) {
@@ -29,4 +27,22 @@ const createUser = async ( data ) => {
     }
 }
 
-export default { getAllUsers , createUser }
+const editUser = async ( data ) => {
+    try {
+        const response = await axios.put( API + `/${data.userID}` , data , { headers } );
+        return response
+    } catch ( error ) {
+        return error.response;       
+    }
+}
+
+const getUser = async (id) => {
+    try {  
+        const response = await axios.get( API + `/${id}` , { headers } );
+        return response
+    } catch ( error ) {
+        return error.response;       
+    }
+}
+
+export default { getAllUsers , createUser , editUser , getUser }

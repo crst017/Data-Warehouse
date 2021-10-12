@@ -1,64 +1,51 @@
 import capitalize from "../utils/capitalize.js";
 import user from '../utils/handleUsers.js';
+import validateUserFormData from "../utils/validateUserFormData.js";
 
 const CreateUser = () => {
-    
-    const createNewUser = async (e) => {
+
+    const userAction = async (e) => {
+
+        console.log(e.target)
+        let title = e.target.previousElementSibling.children[0];
+        const action = title.textContent;
+        const userID = title.id;
 
         e.preventDefault();
-
-        const name = capitalize(document.querySelector('#name').value);
-        const lastname = capitalize(document.querySelector('#lastname').value);
-        const email = document.querySelector('#email').value;
-        const role = document.querySelector('#role').value;
-        const password = document.querySelector('#password').value;
-        const confirmPasword = document.querySelector('#confirm-password').value;
-
-        const errorMsgs = document.querySelectorAll('.error-msg');
-        errorMsgs.forEach( msg => msg.classList.add('hidden'));
-        
-        let validatedData = true;
-        const fieldsToValidate = { 'name' : name, 'lastname' : lastname, 'email' : email, 'password' : password, 'confirm-password' : confirmPasword }
-
-        for (const field in fieldsToValidate) {
-            
-            if (!fieldsToValidate[field]) {
-                document.querySelector(`.error-msg.${field}`).classList.remove('hidden');
-                validatedData = false;
-            }
-        }
-
-        if (password !== confirmPasword) {  
-            const msg = document.querySelector('.error-msg.confirm-password');
-            msg.textContent = 'Las contraseñas no coinciden';
-            msg.classList.remove('hidden');
-            validatedData = false
-        }
+        const validatedData = validateUserFormData();
         
         if ( validatedData )  {
 
-            const data = {
-                'username' : name + ' ' + lastname,
-                'fullname' : name + ' ' + lastname,
-                'email' : email,
-                'password' : password,
-                'role' : role
+            let data = {
+                    'username' : validatedData.name + ' ' + validatedData.lastname,
+                    'fullname' : capitalize(validatedData.name) + ' ' + capitalize(validatedData.lastname),
+                    'email' : validatedData.email,
+                    'password' : validatedData.password,
+                    'role' : validatedData.role
             }
 
-            const response = await user.createUser(data);
+            let response;
+            if (action === "Nuevo usuario") {
+                console.log("creo")
+                response = await user.createUser(data);
+            }
+            else {
+                data = { ...data , userID }
+                response = await user.editUser(data);
+            }
+
             console.log(response)
             if ( response.status === 201) {
-                
                 document.querySelector('.modal-user').classList.remove('visible');
-            }
-            
+                location.reload();
+            }       
         }
     }
 
     const modal = `
         <div class="modal-head">
-            <h2>Nuevo usuario</h2>
-            <a class="close-modal" href="#users">X</a>
+            <h2 class="title-modal">Nuevo usuario</h2>
+            <a class="close-modal icon-close" href="#users"></a>
         </div>
 
         <form action="" class="modal-cont">
@@ -105,7 +92,7 @@ const CreateUser = () => {
                 </div>
 
                 <div class="modal-buttons">
-                <button id="create-user" class="save">Guardar usuario</button>  
+                    <button type="submit" id="create-user" class="save">Guardar usuario</button>  
                 </div>
             </section>
         </form>
@@ -117,7 +104,7 @@ const CreateUser = () => {
     divModal.innerHTML = modal;
 
     const form = divModal.children[1];
-    form.addEventListener( "submit" , createNewUser )
+    form.addEventListener( "submit" , userAction )
 
     return divModal;
 }
