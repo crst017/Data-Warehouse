@@ -16,9 +16,6 @@ nav {
             width: 72px;
             margin-left: 17px;
             margin-right: 17px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             border-bottom: 2px solid variables.$blue-headers;
             cursor: pointer;
 
@@ -49,6 +46,10 @@ nav {
         font-size: 14px;
         color: white;
         text-decoration: none;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         &:hover {
             color: white;
         }

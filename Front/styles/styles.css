@@ -43,9 +43,6 @@ nav ul li {
   width: 72px;
   margin-left: 17px;
   margin-right: 17px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-bottom: 2px solid #0462BA;
   cursor: pointer;
 }
@@ -68,6 +65,10 @@ nav a {
   font-size: 14px;
   color: white;
   text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 nav a:hover {
   color: white;
@@ -95,11 +96,27 @@ nav .navbar-brand {
 }
 .table-header, .table-row {
   height: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr 0.9fr 120px;
+  justify-content: center;
+  align-items: center;
+}
+.table-header > *, .table-row > * {
+  height: inherit;
   display: flex;
   align-items: center;
 }
 .table-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.table-header .icon-exchange {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 400;
+  transform: rotate(90deg);
+  margin: 0px;
+  margin-left: 8px;
+  padding: 0px;
 }
 .table-row:nth-last-child(1) {
   border-bottom: none;
@@ -108,14 +125,15 @@ nav .navbar-brand {
   height: 100%;
 }
 .table .actions {
-  width: 82px;
   height: 100%;
+  padding: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .table .actions * {
   font-size: 18px;
+  padding: 0px;
   color: rgba(0, 0, 0, 0.5);
   height: 100%;
   display: flex;
@@ -127,10 +145,17 @@ nav .navbar-brand {
   display: none;
   font-size: 20px;
 }
+.table .actions .icon-dots-three-horizontal {
+  padding: 0px;
+}
 .table-row:hover {
   background-color: rgba(0, 0, 0, 0.05);
   border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.table-row:hover .position {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 .table-row:hover .actions {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
