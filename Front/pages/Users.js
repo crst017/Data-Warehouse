@@ -1,10 +1,15 @@
 import user from '../utils/handleUsers.js';
 import CreateUser from '../templates/CreateUser.js';
 import setUserFormData from '../utils/setUserFormData.js'
+import configAlerts from '../utils/configAlerts.js';
 
+import capitalize from '../utils/capitalize.js';
 const Users = async () => {
     
     const response = await user.getAllUsers();
+    response.data.forEach( user => {
+        user.role = user.role === 'admin' ? 'Administrador' : 'Usuario'
+    });
     let section = document.createElement('section');
     section.classList.add('users-table' , 'col-9');
 
@@ -15,6 +20,20 @@ const Users = async () => {
         const userInfo = await user.getUser(userID);
         setUserFormData(userInfo.data);
         openModal(e);
+    }
+
+    const deleteUser = async (e) => {
+        const userID = e.target.parentNode.parentNode.id;
+
+        Swal.fire( configAlerts.deleteAlert )
+            .then( async (result) => {
+                if (result.isConfirmed) {
+
+                    const response = await user.deleteUser(userID);
+                    Swal.fire( configAlerts.deleteConfirm('usuario') )
+                        .then(  result => location.reload());    
+                }
+            })
     }
 
     const openModal = (e) => {     
@@ -39,25 +58,32 @@ const Users = async () => {
         return modifyUserButton;
     }
 
+    const createDelete = () => {
+        const deleteUserButton = document.createElement('span');
+        deleteUserButton.classList.add('icon-delete');
+        return deleteUserButton;
+    }
+
     const view = `
             <div class=title-content>
                 <h2 class="">Usuarios</h2>
             </div>
             <section class="table">
-            <div class="table-header row g-0 p-0">
-                <span class="col">Nombre</span>
-                <span class="col">E-mail</span>
-                <span class="col">Rol</span>
-                <div class="col text-center actions">Acciones</div>
+            <div class="table-header g-0 p-0">
+                <span class="">Nombre<span class="icon-exchange"></span></span>
+                <span class="">Apellido<span class="icon-exchange"></span></span>
+                <span class="">E-mail<span class="icon-exchange"></span></span>
+                <span class="">Rol<span class="icon-exchange"></span></span>
+                <span class="actions">Acciones</span>
             </div>
             ${response.data.map( user => `
-                <div id=${user.id} class="table-row row g-0 p-0">
-                    <span class="col">${user.fullname}</span>
-                    <span class="col">${user.email}</span>
-                    <span class="col">${user.role}</span>
-                    <div class="col d-flex justify-content-evenly actions">
+                <div id=${user.id} class="table-row g-0 p-0">
+                    <span class="">${capitalize(user.fullname.split(' ')[0])}</span>
+                    <span class="">${capitalize(user.fullname.split(' ')[1])}</span>
+                    <span class="">${user.email}</span>
+                    <span class="">${user.role}</span>
+                    <div class="d-flex justify-content-evenly actions">
                         <span class="icon-dots-three-horizontal"></span>
-                        <span id="delete" class="icon-delete"></span>
                     </div>
                 </div>
                 `).join('')
@@ -77,9 +103,15 @@ const Users = async () => {
 
     const numberOfUsers = section.children[1].children.length;
     for (let i = 1; i < numberOfUsers; i++) {
+
+        const editUserButton =  createDelete();
+        editUserButton.onclick = deleteUser;
+        section.children[1].children[i].children[4].appendChild(editUserButton);
+
         const modifyUserButton = createEdit();
         modifyUserButton.onclick = editUser;
-        section.children[1].children[i].children[3].appendChild(modifyUserButton)
+        section.children[1].children[i].children[4].appendChild(modifyUserButton);
+
     }
 
     return section

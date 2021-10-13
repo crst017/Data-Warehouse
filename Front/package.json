@@ -11,6 +11,9 @@
   "author": "Cristian Navarro León <cristiannl.0117@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.4"
+    "axios": "^0.21.4",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "sweetalert2": "^11.1.7"
   }
 }
