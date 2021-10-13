@@ -9,7 +9,7 @@ const setUserFormData = ( userInfo = '' ) => {
     document.querySelector('#name').value = name || '';
     document.querySelector('#lastname').value = lastname || '';
     document.querySelector('#email').value = userInfo.email || '';
-    document.querySelector('#role').value = userInfo.role || ''
+    document.querySelector('#role').value = userInfo.role || 'user';
     
     document.querySelector('#password').value = '';
     document.querySelector('#confirm-password').value = '';

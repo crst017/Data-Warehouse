@@ -21,7 +21,7 @@ const CreateUser = () => {
                     'fullname' : capitalize(validatedData.name) + ' ' + capitalize(validatedData.lastname),
                     'email' : validatedData.email,
                     'password' : validatedData.password,
-                    'role' : validatedData.role
+                    'role' : capitalize(validatedData.role)
             }
 
             let response;

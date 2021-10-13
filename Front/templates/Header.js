@@ -3,6 +3,11 @@ const Header = () => {
     let nav = document.createElement('nav');
     nav.classList.add("justify-content-between" , "px-5");
 
+    const logout = () => {
+        sessionStorage.clear()
+        location.reload();
+    }
+    
     const logo = `
     <span class="navbar-brand">LOGO</span>  
     `;
@@ -21,16 +26,36 @@ const Header = () => {
             <li class="nav-item li-regions">
                 <a class="" href="#regions">Region / Ciudad</a>
             </li>
-            <li class="nav-item li-logout">
-                <a class="" href="#">Salir</a>
-            </li>
         </ul>
     `;
 
-    sessionStorage.getItem('token') ? 
-        nav.innerHTML = logo + menu :
-        nav.innerHTML = logo; 
+    const token = sessionStorage.getItem('token');
+    // token ? 
+    //     nav.innerHTML = logo + menu :
+    //     nav.innerHTML = logo;
+    
+    if ( token ) {
 
+        nav.innerHTML = logo + menu
+
+        const logoutButton = document.createElement('li');
+        logoutButton.innerHTML = '<a class="" href="#">Salir</a>';
+        logoutButton.classList.add('nav-item','li-logout')
+        logoutButton.onclick = logout;
+        nav.children[1].appendChild(logoutButton);
+        
+    } else {
+        nav.innerHTML = logo;
+    }
+
+    try {
+        const role = jwt_decode(token).role;
+        if ( role !== 'admin') {
+            const userItem = nav.children[1].children[2];
+            userItem.classList.add('d-none')
+        }
+    } catch (error) {}
+    
     return nav;
 }
 

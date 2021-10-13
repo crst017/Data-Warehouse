@@ -7,7 +7,7 @@ import getHash from '../utils/getHash.js';
 
 const routes = {
     '/': LogIn,
-    'home': Users,
+    'home': Header,
     'users': Users,
     // 'modal-user': CreateUser,
     // '/:id': Character,
@@ -19,8 +19,9 @@ const router = async () => {
     const header = null || document.querySelector('header');
     const content = null || document.querySelector('.content');
     content.innerHTML = null;
+    header.innerHTML = null;
 
-    header.innerHTML = Header().outerHTML;  // 
+    header.appendChild(Header());
     let route = getHash();
     let render = routes[route] ? routes[route] : console.log("nelson");
     render = await render();

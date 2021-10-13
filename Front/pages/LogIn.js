@@ -9,7 +9,7 @@ const LogIn = async () => {
         const response = await loginUser( username, password );
         
         if ( response.status === 200 ) {
-            sessionStorage.setItem( 'token' , response.data);
+            sessionStorage.setItem( 'token' , response.data );
             window.location.hash = 'home';
         }
     }
