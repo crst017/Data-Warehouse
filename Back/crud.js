@@ -63,7 +63,7 @@ const user = {
             if ( queryRes.password == password ) {
                 const { id, username, role } = queryRes;
                 const authToken = token.encode ( id, username, role );
-                res.status(200).send( authToken);
+                res.status(200).send( authToken );
             }
             else {
                 res.status(401).send("User or password is invalid");
@@ -129,9 +129,9 @@ const user = {
         const verifyID = await existingID( id, "dw_cmnl.user" );
         if ( !verifyID ) res.status(404).send('The ID does not exist');
 
-        sequelize.query( `UPDATE user SET active = "N" WHERE id = ${id}`)
-            .then( data => res.status(404).send('User is inactive now'))
-            .catch( err => res.status(400).send("Error: " + err));
+        sequelize.query( `DELETE FROM user WHERE id = ${id}`)
+            .then( data => res.status(400).send('User deleted successfully'))
+            .catch( err => res.status(404).send("Error: " + err));
     }
 };
 

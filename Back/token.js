@@ -19,7 +19,7 @@ const token = {
         const token = auth.substring( 7, auth.length );
         const userInfo = jwt.verify( token, jwtKey );
         return userInfo 
-    },
+    }
 }
 
 module.exports = token;
