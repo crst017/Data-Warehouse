@@ -1,3 +1,4 @@
+import capitalize from "./capitalize.js";
 const configAlerts = {
 
     deleteAlert : {
@@ -11,16 +12,30 @@ const configAlerts = {
         cancelButtonText: 'Cancelar'
     },
 
-    deleteConfirm : ( text ) => {
+    modifyConfirm : ( target , action ) => {
         
         const config = {
-            title: 'Eliminado!',
-            text: `El ${text} ha sido eliminado.`,
+            title: `${capitalize(action)}!`,
+            text: `El ${target} ha sido ${action}.`,
             icon: 'success',
             confirmButtonColor: '#3085d6'
         }
+
+        Swal.fire( config )
+            .then(  result => location.reload() );
+    },
+
+    modifyError : ( target , action ) => {
         
-        return config
+        const config = {
+            title: `${capitalize(action)}!`,
+            text: `El ${target} no se ha podido ${action}.`,
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+        }
+
+        Swal.fire( config )
+            .then(  result => location.reload() );
     }
 }
 
