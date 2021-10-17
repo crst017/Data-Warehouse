@@ -10,6 +10,7 @@ const Users = async () => {
     response.data.forEach( user => {
         user.role = user.role === 'admin' ? 'Administrador' : 'Usuario'
     });
+    
     let section = document.createElement('section');
     section.classList.add('users-table' , 'col-9');
 
@@ -28,10 +29,12 @@ const Users = async () => {
         Swal.fire( configAlerts.deleteAlert )
             .then( async (result) => {
                 if (result.isConfirmed) {
-
-                    const response = await user.deleteUser(userID);
-                    Swal.fire( configAlerts.deleteConfirm('usuario') )
-                        .then(  result => location.reload());    
+                    try {
+                        const response = await user.deleteUser(userID);
+                        configAlerts.modifyConfirm( 'usuario' , 'eliminado');
+                    } catch (error) {
+                        configAlerts.modifyError( 'usuario' , 'error');
+                    }
                 }
             })
     }
@@ -48,7 +51,7 @@ const Users = async () => {
 
         const modal = document.querySelector('.modal-user');
         modal.classList.add('visible');
-        const closeModalButton = document.querySelector('.close-modal');
+        const closeModalButton = document.querySelector('.close-modal.users');
         closeModalButton.onclick = () => modal.classList.remove('visible');
     }
 
