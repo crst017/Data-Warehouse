@@ -46,8 +46,13 @@
         }
     }
 
+    &-row.g-0{
+        border-bottom: none;
+    }
+
     &-row:nth-last-child(1) {
         border-bottom: none;
+        border-bottom-color: none;
     }
 
     &.row {

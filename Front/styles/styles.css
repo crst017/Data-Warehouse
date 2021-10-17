@@ -23,6 +23,10 @@ button {
   font-size: 14px;
 }
 
+.accordion-button, .accordion-header {
+  width: 100%;
+}
+
 a {
   text-decoration: none;
 }
@@ -118,8 +122,12 @@ nav .navbar-brand {
   margin-left: 8px;
   padding: 0px;
 }
+.table-row.g-0 {
+  border-bottom: none;
+}
 .table-row:nth-last-child(1) {
   border-bottom: none;
+  border-bottom-color: none;
 }
 .table.row {
   height: 100%;
@@ -254,6 +262,7 @@ input {
   padding: 100px calc(2.5% + 16px) 30px;
   position: relative;
   transform: translateY(-130px);
+  min-height: 160px;
   display: flex;
   align-items: center;
 }
