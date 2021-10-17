@@ -1,10 +1,9 @@
 import getToken from './getToken.js';
 
-const API = 'http://localhost:3000/user';
+const API = 'http://localhost:3000/region';
 const allUsers = 's';
-const newUser = '/register';
 
-const getAllUsers = async () => {
+const getAllRegions = async () => {
     try {
         const headers = getToken();
         const response = await axios.get( API + allUsers , { headers } );
@@ -14,10 +13,10 @@ const getAllUsers = async () => {
     }
 }
 
-const createUser = async ( data ) => {
+const createRegion = async ( data ) => {
     try {
         const headers = getToken();   
-        const response = await axios.post( API + newUser , data , { headers } );
+        const response = await axios.post( API , data , { headers } );
         return response
     } catch ( error ) {
         return error.response;       
@@ -54,4 +53,4 @@ const deleteUser = async ( id ) => {
     }
 }
 
-export default { getAllUsers , createUser , editUser , getUser , deleteUser }
+export default { getAllRegions , createRegion}
