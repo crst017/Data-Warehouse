@@ -1,3 +1,6 @@
+import capitalize from "./capitalize";
+
+
 const validateUserFormData = ( ) => {
     
     const name = document.querySelector('#name').value;
@@ -5,7 +8,7 @@ const validateUserFormData = ( ) => {
     errorMsgs.forEach( msg => msg.classList.add('hidden'));
 
     let validatedData = true;
-    const fieldsToValidate = { 'name' : name }
+    const fieldsToValidate = { 'name' : capitalize(name) }
 
     for (const field in fieldsToValidate) {
         if (!fieldsToValidate[field]) {

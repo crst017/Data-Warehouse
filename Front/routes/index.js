@@ -1,15 +1,15 @@
 import Header from '../templates/Header.js';
 import LogIn from '../pages/LogIn.js';
 import Users from '../pages/Users.js';
-import CreateUser from '../templates/CreateUser.js';
+import RegionCity from '../pages/RegionCity.js';
 
 import getHash from '../utils/getHash.js';
 
 const routes = {
     '/': LogIn,
-    'home': Header,
+    'home': RegionCity,
     'users': Users,
-    // 'modal-user': CreateUser,
+    'region-city': RegionCity,
     // '/:id': Character,
     // '/contact': 'Contact'
 }
