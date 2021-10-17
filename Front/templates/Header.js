@@ -24,15 +24,12 @@ const Header = () => {
                 <a class="" href="#users">Usuarios</a>
             </li>
             <li class="nav-item li-regions">
-                <a class="" href="#regions">Region / Ciudad</a>
+                <a class="" href="#region-city">Region / Ciudad</a>
             </li>
         </ul>
     `;
 
     const token = sessionStorage.getItem('token');
-    // token ? 
-    //     nav.innerHTML = logo + menu :
-    //     nav.innerHTML = logo;
     
     if ( token ) {
 

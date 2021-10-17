@@ -1,8 +1,23 @@
 import capitalize from "../utils/capitalize.js";
 import user from '../utils/handleUsers.js';
 import validateUserFormData from "../utils/validateUserFormData.js";
+import configAlerts from '../utils/configAlerts.js';
 
 const CreateUser = () => {
+
+    const validateRequest = ( response ) => {
+        const method = response.config.method;
+        if ( response.status === 201) {
+            method === 'put' ? 
+                configAlerts.modifyConfirm( 'usuario' , 'modificado') :
+                configAlerts.modifyConfirm( 'usuario' , 'creado');
+        } else {
+            method === 'put' ?
+                configAlerts.modifyError( 'usuario' , 'modificar') :
+                configAlerts.modifyError( 'usuario' , 'eliminar');
+        };
+        document.querySelector('.modal-user').classList.remove('visible');
+    }
 
     const userAction = async (e) => {
 
@@ -26,26 +41,21 @@ const CreateUser = () => {
 
             let response;
             if (action === "Nuevo usuario") {
-                console.log("creo")
                 response = await user.createUser(data);
+                validateRequest( response );
             }
             else {
                 data = { ...data , userID }
                 response = await user.editUser(data);
-            }
-
-            console.log(response)
-            if ( response.status === 201) {
-                document.querySelector('.modal-user').classList.remove('visible');
-                location.reload();
-            }       
+                validateRequest( response );
+            }    
         }
     }
 
     const modal = `
         <div class="modal-head">
             <h2 class="title-modal">Nuevo usuario</h2>
-            <a class="close-modal icon-close" href="#users"></a>
+            <a class="close-modal icon-close users" href="#users"></a>
         </div>
 
         <form action="" class="modal-cont">
