@@ -23,17 +23,17 @@ const createRegion = async ( data ) => {
     }
 }
 
-const editUser = async ( data ) => {
+const editRegion = async ( data ) => {
     try {
         const headers = getToken();
-        const response = await axios.put( API + `/${data.userID}` , data , { headers } );
+        const response = await axios.put( API + `/${data.regionID}` , data , { headers } );
         return response
     } catch ( error ) {
         return error.response;       
     }
 }
 
-const getUser = async ( id ) => {
+const getRegion = async ( id ) => {
     try {
         const headers = getToken();  
         const response = await axios.get( API + `/${id}` , { headers } );
@@ -43,9 +43,10 @@ const getUser = async ( id ) => {
     }
 }
 
-const deleteUser = async ( id ) => {
+const deleteRegion = async ( id ) => {
     try {
         const headers = getToken();  
+        console.log(id);
         const response = await axios.delete( API + `/${id}` , { headers } );
         return response
     } catch ( error ) {
@@ -53,4 +54,4 @@ const deleteUser = async ( id ) => {
     }
 }
 
-export default { getAllRegions , createRegion}
+export default { getAllRegions , createRegion, editRegion, getRegion, deleteRegion}

@@ -16,7 +16,7 @@ const configAlerts = {
         
         const config = {
             title: `${capitalize(action)}!`,
-            text: `El ${target} ha sido ${action}.`,
+            text: `${target === "pais" ? 'El' : 'La'} ${target} ha sido ${action}.`,
             icon: 'success',
             confirmButtonColor: '#3085d6'
         }
@@ -25,11 +25,12 @@ const configAlerts = {
             .then(  result => location.reload() );
     },
 
-    modifyError : ( target , action ) => {
+    modifyError : ( target , action , data = '') => {
         
+        const msg = data.includes('already exists') ? 'Ya existe !' : 'Introduzca cambios !';
         const config = {
-            title: `${capitalize(action)}!`,
-            text: `El ${target} no se ha podido ${action}.`,
+            title: `${capitalize(action)} !`,
+            text: `${target === "pais" ? 'El' : 'La'} ${target} no se ha podido ${action}. ` + msg,
             icon: 'error',
             confirmButtonColor: '#3085d6'
         }

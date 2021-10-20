@@ -1,4 +1,4 @@
-const setUserFormData = ( userInfo = '' ) => {
+const setUserFormData = ( userInfo = '' ) => { // Fills the selected user info into the form for editing
 
     let name , lastname;
     if (userInfo) {
