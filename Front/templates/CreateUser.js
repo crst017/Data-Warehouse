@@ -21,7 +21,6 @@ const CreateUser = () => {
 
     const userAction = async (e) => {
 
-        console.log(e.target)
         let title = e.target.previousElementSibling.children[0];
         const action = title.textContent;
         const userID = title.id;

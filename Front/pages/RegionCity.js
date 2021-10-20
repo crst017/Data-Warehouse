@@ -15,6 +15,7 @@ const RegionCity = async () => {
 
         if (e.target.tagName === 'BUTTON') {
             h2.textContent = title === 'pais' ? `Nuevo ${title}` : `Nueva ${title}`;
+            document.querySelector('#name').value = ''
         } 
         else h2.textContent = title === 'pais' ? `Modificar ${title}` : `Modificar ${title}`;
 
@@ -29,11 +30,11 @@ const RegionCity = async () => {
             <h2 class="">Regiones</h2>
         </div>
         <div class="accordion" id="accordionPanelsStayOpenExample">
-        ${regions.data.map( region => AccordionItem(region)).join('')}
         </div>       
-    `
+    `;
 
     section.innerHTML = view;
+    regions.data.map( region => section.children[1].appendChild(AccordionItem( region , openModal ))); // Create each region item, pass openModal to execute by clicking edit button 
 
     const createRegionButton = document.createElement('button');
     createRegionButton.textContent = 'Agregar región';

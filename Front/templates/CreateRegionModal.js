@@ -2,7 +2,7 @@ import validateRegionModalData from "../utils/validateRegionModalData.js";
 import region from "../utils/handleRegions.js";
 import configAlerts from "../utils/configAlerts.js";
 
-const CreateRegionModal = ( buttonText ) => {
+const CreateRegionModal = () => {
 
     const validateRequest = ( response ) => {
         const method = response.config.method;
@@ -13,22 +13,33 @@ const CreateRegionModal = ( buttonText ) => {
         } else {
             method === 'put' ?
                 configAlerts.modifyError( 'región' , 'modificar') :
-                configAlerts.modifyError( 'región' , 'eliminar');
+                configAlerts.modifyError( 'región' , 'crear' , response.data);
         };
         document.querySelector('.modal-user').classList.remove('visible');
     }
 
     const userAction = async (e) => {
-
+        
+        const title = document.querySelector('.title-modal');
+        const action = title.textContent;
+        const regionID = title.id;
+        
         e.preventDefault();
         const validatedData = validateRegionModalData();
+  
         if ( validatedData )  {
 
             let data = validatedData;
-            const response = await region.createRegion(data);
-            validateRequest( response );       
+            if (action.includes('Nuev')) {
+                const response = await region.createRegion(data);
+                validateRequest( response );       
+            }
+            else {
+                data = { ...data , regionID }
+                const response = await region.editRegion(data);
+                validateRequest( response );
+            }
         }
-
     }
 
     const modal = `
