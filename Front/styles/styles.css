@@ -192,6 +192,7 @@ input {
   left: 0;
   padding-top: 100px;
   display: none;
+  z-index: 3;
 }
 .modal-user.visible {
   display: block;
@@ -239,7 +240,7 @@ input {
   padding-left: 16px;
   padding-right: 16px;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
 }
 .form-header > * {
   display: flex;
@@ -326,6 +327,48 @@ input {
 }
 .error-msg.hidden {
   visibility: hidden;
+}
+
+.accordion-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.accordion-header .actions {
+  height: 100%;
+  width: 30px;
+  padding: 0px;
+  position: absolute;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.accordion-header .actions * {
+  font-size: 18px;
+  padding: 0px;
+  color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.accordion-header .actions .icon-mode_edit, .accordion-header .actions .icon-delete {
+  display: none;
+}
+.accordion-header .actions .icon-dots-three-horizontal {
+  padding: 0px;
+}
+.accordion-header .actions:hover .icon-dots-three-horizontal {
+  display: none;
+}
+.accordion-header .actions:hover .icon-mode_edit, .accordion-header .actions:hover .icon-delete {
+  display: flex;
+}
+.accordion-header .actions:hover .icon-mode_edit {
+  margin-left: 14px;
 }
 
 /*# sourceMappingURL=styles.css.map */

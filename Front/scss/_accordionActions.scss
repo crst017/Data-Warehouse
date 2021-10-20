@@ -1,0 +1,54 @@
+@use 'variables';
+
+.accordion-header {
+    
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .actions {
+        height: 100%;
+        width: 30px;
+        padding: 0px;
+        position: absolute;
+        right: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+
+        * {
+            font-size: 18px;
+            padding: 0px;
+            color: variables.$gray-icons;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .icon-mode_edit,.icon-delete {
+            display: none;
+        }
+
+        .icon-dots-three-horizontal {
+            padding: 0px;
+        }
+
+        &:hover {
+
+            .icon-dots-three-horizontal {
+                display: none;
+            }
+
+            .icon-mode_edit,.icon-delete {
+                display: flex;
+            }
+
+            .icon-mode_edit {
+                margin-left: 14px;
+            }
+        }
+    }
+}
