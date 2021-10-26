@@ -1,56 +1,59 @@
 import getToken from './getToken.js';
 
-const API = 'http://localhost:3000/region';
-const allRegions = 's';
+const API = 'http://localhost:3000/cit';
+const singleCity = 'y';
+const allCities = 'ies';
 
-const handleRegions = {
 
+const handleCities = {
 
     getAll : async () => {
         try {
             const headers = getToken();
-            const response = await axios.get( API + allRegions , { headers } );
+            const response = await axios.get( API + allCities , { headers } );
             return response
         } catch ( error ) {
             return error.response;       
         }
     },
-
+    
     create : async ( data ) => {
         try {
             const headers = getToken();   
-            const response = await axios.post( API , data , { headers } );
+            const response = await axios.post( API + singleCity, data , { headers } );
             return response
         } catch ( error ) {
             return error.response;       
         }
     },
-
+    
     edit : async ( data ) => {
         try {
             const headers = getToken();
-            const response = await axios.put( API + `/${data.itemID}` , data , { headers } );
+            const response = await axios.put( API + singleCity + `/${data.itemID}` , data , { headers } );
+            console.log(response)
             return response
         } catch ( error ) {
+            console.log(error)
             return error.response;       
         }
     },
-
+    
     get : async ( id ) => {
         try {
             const headers = getToken();  
-            const response = await axios.get( API + `/${id}` , { headers } );
+            const response = await axios.get( API + singleCity + `/${id}` , { headers } );
             return response
         } catch ( error ) {
             return error.response;       
         }
     },
-
+    
     delete : async ( id ) => {
         try {
             const headers = getToken();  
             console.log(id);
-            const response = await axios.delete( API + `/${id}` , { headers } );
+            const response = await axios.delete( API + singleCity + `/${id}` , { headers } );
             return response
         } catch ( error ) {
             return error.response;       
@@ -58,4 +61,4 @@ const handleRegions = {
     }
 }
 
-export default handleRegions
+export default handleCities
