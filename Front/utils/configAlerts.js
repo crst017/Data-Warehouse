@@ -26,11 +26,13 @@ const configAlerts = {
     },
 
     modifyError : ( target , action , data = '') => {
+ 
+        const msg = data.includes('already exists') ? 'Ya existe !' :
+                    data.includes('a foreign key')  ? 'Tiene registros asociados' : 'Introduzca cambios !';
         
-        const msg = data.includes('already exists') ? 'Ya existe !' : 'Introduzca cambios !';
         const config = {
             title: `${capitalize(action)} !`,
-            text: `${target === "pais" ? 'El' : 'La'} ${target} no se ha podido ${action}. ` + msg,
+            text: `${target === "pais" || "país" ? 'El' : 'La'} ${target} no se ha podido ${action}. ` + msg,
             icon: 'error',
             confirmButtonColor: '#3085d6'
         }
