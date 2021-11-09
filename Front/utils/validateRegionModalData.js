@@ -1,7 +1,6 @@
 import capitalize from "./capitalize.js";
 
-
-const validateUserFormData = ( ) => {
+const validateRegionModalData = ( ) => {
     
     let name = document.querySelector('#name').value;
     const errorMsgs = document.querySelectorAll('.error-msg');
@@ -21,4 +20,4 @@ const validateUserFormData = ( ) => {
     if( validatedData) return { name } 
 }
 
-export default validateUserFormData;
+export default validateRegionModalData;

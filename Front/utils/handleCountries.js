@@ -41,10 +41,8 @@ const handleCountries = {
         try {
             const headers = getToken();  
             const response = await axios.get( API + singleCountry + `/${id}` , { headers } );
-            console.log(response)
             return response
         } catch ( error ) {
-            console.log(error)
             return error.response;       
         }
     },

@@ -14,9 +14,15 @@ const configAlerts = {
 
     modifyConfirm : ( target , action ) => {
         
+        const pron = target === "pais" || target === "país" ? 'El' : 'La';
+        action = action === "modificada" && pron === 'El' ? "modificado" : action;
+        action = action === "eliminado" && pron === 'La' ? "eliminada" : action;
+
+        console.log(pron,action);
+
         const config = {
             title: `${capitalize(action)}!`,
-            text: `${target === "pais" ? 'El' : 'La'} ${target} ha sido ${action}.`,
+            text: `${pron} ${target} ha sido ${action}.`,
             icon: 'success',
             confirmButtonColor: '#3085d6'
         }
