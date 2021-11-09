@@ -14,6 +14,13 @@ h2 {
   font-weight: 700;
 }
 
+h3 {
+  color: black;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 button {
   height: 42px;
   width: 180px;
@@ -90,9 +97,21 @@ nav .navbar-brand {
   margin-top: 40px;
   margin-bottom: 20px;
 }
-.title-content .add-button {
+.title-content.section {
+  margin-top: 7px;
+}
+
+.add-button {
   background-color: #0462BA;
   color: white;
+}
+
+.accordion-body {
+  display: flex;
+  flex-direction: column;
+}
+.accordion-body .add-button {
+  align-self: flex-end;
 }
 
 .table {

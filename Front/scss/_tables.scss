@@ -7,10 +7,23 @@
     align-items: flex-end;
     margin-top: 40px;
     margin-bottom: 20px;
+    
+    &.section {
+        margin-top: 7px;
+    }
+}
+
+.add-button {
+    background-color: variables.$blue-headers;
+    color: white;
+}
+
+.accordion-body {
+    display: flex;
+    flex-direction: column;
 
     .add-button {
-        background-color: variables.$blue-headers;
-        color: white;
+        align-self: flex-end;
     }
 }
 
