@@ -174,9 +174,8 @@ const city = {
         const verifyID = await existingID( id, "dw_cmnl.city" );
         if ( !verifyID ) res.status(404).send('The city ID does not exist');
 
-        const { country_id , name } = req.body;
-        
-        let queryString = `country_id = ${country_id} , name = "${name}"`;
+        const { name } = req.body;
+        let queryString = `name = "${name}"`;
 
         sequelize.query( `UPDATE city SET ${queryString} WHERE id = ${id}`)
             .then( data => {
@@ -239,9 +238,9 @@ const country = {
         const verifyID = await existingID( id, "dw_cmnl.country" );
         if ( !verifyID ) res.status(404).send('The country ID does not exist');
 
-        const { region_id , name } = req.body;
+        const { name } = req.body;
         
-        let queryString = `region_id = ${region_id} , name = "${name}"`;
+        let queryString = `name = "${name}"`;
 
         sequelize.query( `UPDATE country SET ${queryString} WHERE id = ${id}`)
             .then( data => {
