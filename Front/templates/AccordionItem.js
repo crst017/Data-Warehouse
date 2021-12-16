@@ -60,15 +60,15 @@ const AccordionItem = ( item , openModal , itemCategory ) => {
 
     const view = `
         <h2 class="accordion-header d-flex" id="panelsStayOpen-headingOne" key="${item.id + itemCategory}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${itemCategory + item.id}" 
-                aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            <button class="accordion-button ${ itemCategory !== 'region' ? "collapsed" : ""}" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${itemCategory + item.id}" 
+                aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
                 ${item.name}
             </button>
             <div class="actions">
                 <span class="icon-dots-three-horizontal"></span>
             </div>
         </h2>
-        <div id="panelsStayOpen-collapse${itemCategory + item.id}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div id="panelsStayOpen-collapse${itemCategory + item.id}" class="accordion-collapse collapse ${ itemCategory === 'region' ? "show" : ""}" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
             </div>
         </div>
@@ -76,7 +76,7 @@ const AccordionItem = ( item , openModal , itemCategory ) => {
 
     const viewCity = `
         <h2 class="accordion-header d-flex" id="panelsStayOpen-headingOne" key="${item.id + itemCategory}">
-            <button class="accordion-button rm-button" type="button">
+            <button class="accordion-button rm-button collapsed" type="button">
                 ${item.name}
             </button>
             <div class="actions rm-button">
