@@ -59,8 +59,8 @@ const AccordionItem = ( item , openModal , itemCategory ) => {
     }
 
     const view = `
-        <h2 class="accordion-header d-flex" id="panelsStayOpen-headingOne" key="${item.id}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${item.id}" 
+        <h2 class="accordion-header d-flex" id="panelsStayOpen-headingOne" key="${item.id + itemCategory}">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${itemCategory + item.id}" 
                 aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 ${item.name}
             </button>
@@ -68,11 +68,21 @@ const AccordionItem = ( item , openModal , itemCategory ) => {
                 <span class="icon-dots-three-horizontal"></span>
             </div>
         </h2>
-        <div id="panelsStayOpen-collapse${item.id}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div id="panelsStayOpen-collapse${itemCategory + item.id}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
-                
             </div>
         </div>
+    `;
+
+    const viewCity = `
+        <h2 class="accordion-header d-flex" id="panelsStayOpen-headingOne" key="${item.id + itemCategory}">
+            <button class="accordion-button rm-button" type="button">
+                ${item.name}
+            </button>
+            <div class="actions rm-button">
+                <span class="icon-dots-three-horizontal"></span>
+            </div>
+        </h2>
     `;
 
     const itemDiv = document.createElement('div');
@@ -80,7 +90,7 @@ const AccordionItem = ( item , openModal , itemCategory ) => {
     itemDiv.key = item.id;
     itemDiv.classList.add('accordion-item');
 
-    itemDiv.innerHTML = view;
+    itemDiv.innerHTML = itemCategory === 'city' ? viewCity : view;
 
     const actionsDiv = itemDiv.children[0].children[1];
     actionsDiv.appendChild(createDelete());

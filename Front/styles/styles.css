@@ -95,7 +95,7 @@ nav .navbar-brand {
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .title-content.section {
   margin-top: 7px;
@@ -364,6 +364,9 @@ input {
   justify-content: center;
   z-index: 3;
 }
+.accordion-header .actions.rm-button {
+  right: 30px;
+}
 .accordion-header .actions * {
   font-size: 18px;
   padding: 0px;
@@ -388,6 +391,9 @@ input {
 }
 .accordion-header .actions:hover .icon-mode_edit {
   margin-left: 14px;
+}
+.accordion-header .accordion-button.rm-button::after {
+  background-image: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -5,7 +5,7 @@ import city from "../utils/handleCities.js";
 
 import CreateRegionModal from "../templates/CreateRegionModal.js";
 
-const RegionCity = async () => {
+const RegionCity = async () => { 
 
     let section = document.createElement('section');
     section.classList.add('regions-table' , 'col-9');
@@ -43,7 +43,7 @@ const RegionCity = async () => {
     const titleContent = ( title , textButton , textModal ) => {
         
         const div = document.createElement('div');
-        div.classList.add('title-content' , 'section');
+        div.classList.add('title-content' , 'section' , 'my-0');
 
         const h3Title = document.createElement('h3');
         h3Title.textContent = title;
@@ -66,7 +66,7 @@ const RegionCity = async () => {
 
         let countryCounter = 0; // Reset count, countries per region
 
-        const countryHeader = titleContent( region.name , 'Agregar país' , `país en ${region.name}`);
+        const countryHeader = titleContent( region.name , 'Agregar país' , `país en ${region.name}`);  // Creates "agregar país" button for each region
         accordionContainer.appendChild(AccordionItem( region , openModal , "region" ));
         const countriesContainer = accordionContainer.children[regionCounter].children[1].children[0];
         countriesContainer.appendChild(countryHeader);
@@ -75,14 +75,16 @@ const RegionCity = async () => {
 
             if ( country.region_id === region.id ) {
 
-                   
-                countriesContainer.appendChild( AccordionItem( country , openModal , "country" ) ); 
+                countriesContainer.appendChild( AccordionItem( country , openModal , "country" ) );
+
+                const cityHeader = titleContent( country.name , 'Agregar ciudad' , `ciudad en ${ country.name }`); // Creates "agregar ciudad" button for each region
+                const citiesContainer = countriesContainer.children[countryCounter + 1].children[1].children[0]; 
+                citiesContainer.appendChild(cityHeader); // Append city header into this.
                 countryCounter++; 
 
                 cities.data.forEach ( city => {
                     
                     if ( city.country_id === country.id) {
-                    
                         const citiesContainer = countriesContainer.children[countryCounter].children[1].children[0];
                         citiesContainer.appendChild( AccordionItem( city , openModal , "city" ) );
                     }
