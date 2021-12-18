@@ -4,11 +4,7 @@ const setUserFormData = ( companyInfo = '' ) => { // Fills the selected user com
     document.querySelector('#address').value = companyInfo.address || '';
     document.querySelector('#email').value = companyInfo.email || '';
     document.querySelector('#telephone').value = companyInfo.telephone || '';
-    document.querySelector('#city').value = 5;
-
-
-
-    console.log(companyInfo.city);
+    document.querySelector('#city').value = companyInfo.city_id || '';
     
 }
 

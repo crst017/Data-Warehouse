@@ -1,7 +1,55 @@
-import city from '../utils/handleCities.js';
 import capitalize from '../utils/capitalize.js';
+import validateCompanyFormData from '../utils/validateCompanyFormData.js';
+import company from '../utils/handleCompanies.js';
+import configAlerts from '../utils/configAlerts.js';
 
 const createCompanyModal = ( cities ) => {
+
+    const validateRequest = ( response ) => {
+        const method = response.config.method;
+        if ( response.status === 201) {
+            method === 'put' ? 
+                configAlerts.modifyConfirm( 'compañia' , 'modificada') :
+                configAlerts.modifyConfirm( 'compañia' , 'creada');
+        } else {
+            method === 'put' ?
+                configAlerts.modifyError( 'compañia' , 'modificar') :
+                configAlerts.modifyError( 'compañia' , 'eliminar');
+        };
+        document.querySelector('.modal-user').classList.remove('visible');
+    };
+
+    const saveChanges = async (e) => {
+
+        let title = e.target.previousElementSibling.children[0];
+        const action = title.textContent;
+        const companyID = title.id;
+
+        e.preventDefault();
+        const validatedData = validateCompanyFormData();
+        
+        if ( validatedData )  {
+            
+            let data = {
+                    'name' : capitalize(validatedData.name),
+                    'address' : capitalize(validatedData.address),
+                    'email' : validatedData.email,
+                    'telephone' : validatedData.telephone,
+                    'city_id' : validatedData.city_id
+            }
+
+            let response;
+            if (action === "Nueva compañia") {
+                response = await company.createCompany(data);
+                validateRequest( response );
+            }
+            else {
+                data = { ...data , companyID }
+                response = await company.editCompany(data);
+                validateRequest( response );
+            }    
+        }
+    };
 
     const modal = `
         <div class="modal-head">
@@ -40,7 +88,7 @@ const createCompanyModal = ( cities ) => {
                         <option value="${city.id}">${capitalize(city.name)}</option>
                     `)}
                     </select>
-                    <span class="error-msg hidden">Seleccione una ciudad</span>
+                    <span class="error-msg city hidden">Seleccione una ciudad</span>
                 </div>
 
             </section>
@@ -56,7 +104,11 @@ const createCompanyModal = ( cities ) => {
     const divModal = document.createElement('div');
     divModal.classList.add('modal-user');
     divModal.setAttribute('id','modal-user');
+    
     divModal.innerHTML = modal;
+
+    const form = divModal.children[1];
+    form.addEventListener( "submit" , saveChanges )
 
     return divModal;
 }

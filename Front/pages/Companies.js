@@ -32,7 +32,6 @@ const Companies = async () => {
         document.querySelector('.title-modal').id = companyID; // Passing the id using the title
         
         const companyInfo = await company.getCompany(companyID);
-        // const cityID = await city.get(companyInfo.data.)
         setCompanyFormData(companyInfo.data);
         openModal(e);
     };
