@@ -2,6 +2,7 @@ import Header from '../templates/Header.js';
 import LogIn from '../pages/LogIn.js';
 import Users from '../pages/Users.js';
 import RegionCity from '../pages/RegionCity.js';
+import Companies from '../pages/Companies.js';
 
 import getHash from '../utils/getHash.js';
 
@@ -10,7 +11,7 @@ const routes = {
     'home': RegionCity,
     'users': Users,
     'region-city': RegionCity,
-    // '/:id': Character,
+    'companies': Companies,
     // '/contact': 'Contact'
 }
 

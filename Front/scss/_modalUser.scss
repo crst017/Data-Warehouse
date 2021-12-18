@@ -81,6 +81,10 @@ input {
         width: 25%;
     }
 
+    &.row-5 > * {
+        width: 20%;
+    }
+
     input, select {
 
         margin: 10px 0px 2px;

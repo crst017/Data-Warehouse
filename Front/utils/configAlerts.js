@@ -38,7 +38,7 @@ const configAlerts = {
         
         const config = {
             title: `${capitalize(action)} !`,
-            text: `${target === "pais" || "país" ? 'El' : 'La'} ${target} no se ha podido ${action}. ` + msg,
+            text: `${target === "pais" || target === "país" ? 'El' : 'La'} ${target} no se ha podido ${action}. ` + msg,
             icon: 'error',
             confirmButtonColor: '#3085d6'
         }

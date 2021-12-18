@@ -51,7 +51,7 @@ const Users = async () => {
 
         const modal = document.querySelector('.modal-user');
         modal.classList.add('visible');
-        const closeModalButton = document.querySelector('.close-modal.users');
+        const closeModalButton = document.querySelector('.close-modal');
         closeModalButton.onclick = () => modal.classList.remove('visible');
     }
 
@@ -72,25 +72,25 @@ const Users = async () => {
                 <h2 class="">Usuarios</h2>
             </div>
             <section class="table">
-            <div class="table-header g-0 p-0">
-                <span class="">Nombre<span class="icon-exchange"></span></span>
-                <span class="">Apellido<span class="icon-exchange"></span></span>
-                <span class="">E-mail<span class="icon-exchange"></span></span>
-                <span class="">Rol<span class="icon-exchange"></span></span>
-                <span class="actions">Acciones</span>
-            </div>
-            ${response.data.map( user => `
-                <div id=${user.id} class="table-row g-0 p-0">
-                    <span class="">${capitalize(user.fullname.split(' ')[0])}</span>
-                    <span class="">${capitalize(user.fullname.split(' ')[1])}</span>
-                    <span class="">${user.email}</span>
-                    <span class="">${user.role}</span>
-                    <div class="d-flex justify-content-evenly actions">
-                        <span class="icon-dots-three-horizontal"></span>
-                    </div>
+                <div class="table-header g-0 p-0">
+                    <span class="">Nombre<span class="icon-exchange"></span></span>
+                    <span class="">Apellido<span class="icon-exchange"></span></span>
+                    <span class="">E-mail<span class="icon-exchange"></span></span>
+                    <span class="">Rol<span class="icon-exchange"></span></span>
+                    <span class="actions">Acciones</span>
                 </div>
-                `).join('')
-            }
+                ${response.data.map( user => `
+                    <div id=${user.id} class="table-row g-0 p-0">
+                        <span class="">${capitalize(user.fullname.split(' ')[0])}</span>
+                        <span class="">${capitalize(user.fullname.split(' ')[1])}</span>
+                        <span class="">${user.email}</span>
+                        <span class="">${user.role}</span>
+                        <div class="d-flex justify-content-evenly actions">
+                            <span class="icon-dots-three-horizontal"></span>
+                        </div>
+                    </div>
+                    `).join('')
+                }
             </section>
     `;
     
@@ -105,6 +105,7 @@ const Users = async () => {
     section.appendChild(CreateUser());
 
     const numberOfUsers = section.children[1].children.length;
+
     for (let i = 1; i < numberOfUsers; i++) {
 
         const editUserButton =  createDelete();
@@ -117,7 +118,7 @@ const Users = async () => {
 
     }
 
-    return section
+    return section;
 }
 
 export default Users;

@@ -338,7 +338,7 @@ const company = {
         if ( !verifyID ) res.status(404).send('The company ID does not exist');
 
         const company = await sequelize.query( `
-        SELECT company.id, company.name, company.address, company.email, company.telephone, country.name as country, city.name as city
+        SELECT company.id, company.name, company.address, company.email, company.telephone, country.name as country, city.name as city, city.id as city_id
             FROM company, country, city 
             WHERE company.city_id = city.id 
             AND city.country_id = country.id

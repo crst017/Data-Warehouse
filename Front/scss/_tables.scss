@@ -13,6 +13,10 @@
     }
 }
 
+// .company {
+
+// }
+
 .add-button {
     background-color: variables.$blue-headers;
     color: white;
@@ -37,6 +41,10 @@
         grid-template-columns: 1fr 1fr 1.2fr 0.9fr 120px;
         justify-content: center;
         align-items: center;
+        
+        &.company {
+            grid-template-columns: 0.75fr 0.8fr 1fr 1fr 100px 120px;
+        }
 
         > * {
             height: inherit;
@@ -101,6 +109,7 @@
     }
 
     &-row:hover {
+
         background-color: variables.$gray-row-hover;
         border-left: 1px solid variables.$gray-border-table-hover;
         border-right: 1px solid variables.$gray-border-table-hover;

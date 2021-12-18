@@ -95,7 +95,7 @@ nav .navbar-brand {
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .title-content.section {
   margin-top: 7px;
@@ -123,6 +123,9 @@ nav .navbar-brand {
   grid-template-columns: 1fr 1fr 1.2fr 0.9fr 120px;
   justify-content: center;
   align-items: center;
+}
+.table-header.company, .table-row.company {
+  grid-template-columns: 0.75fr 0.8fr 1fr 1fr 100px 120px;
 }
 .table-header > *, .table-row > * {
   height: inherit;
@@ -267,6 +270,9 @@ input {
   padding-left: 16px;
   padding-right: 16px;
   width: 25%;
+}
+.form-header.row-5 > * {
+  width: 20%;
 }
 .form-header input, .form-header select {
   margin: 10px 0px 2px;
