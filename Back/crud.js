@@ -149,7 +149,7 @@ const city = {
     },
     getCities : async ( req, res) => {
         
-        const cities = await sequelize.query("SELECT * FROM city", { 
+        const cities = await sequelize.query("SELECT * FROM city ORDER BY name", { 
             type: sequelize.QueryTypes.SELECT
         });
         res.status(200).json(cities);
