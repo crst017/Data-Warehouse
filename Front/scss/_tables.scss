@@ -203,9 +203,15 @@
         font-size: 11px;
     }
 
-    .name-email > span {
-        padding-left: 8px;
-    }
+    .name-email {
+
+        display: flex;
+        flex-direction: column;
+
+        span {
+            padding-left: 8px;
+        }
+    } 
 }
 
 .contact-region {

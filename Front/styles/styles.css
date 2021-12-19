@@ -268,7 +268,12 @@ nav .navbar-brand {
   color: rgba(0, 0, 0, 0.5);
   font-size: 11px;
 }
-.contact-info .name-email > span {
+.contact-info .name-email {
+  display: flex;
+  flex-direction: column;
+}
+.contact-info .name-email span {
+  flex-grow: 1;
   padding-left: 8px;
 }
 
