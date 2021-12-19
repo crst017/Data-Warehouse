@@ -38,6 +38,14 @@ a {
   text-decoration: none;
 }
 
+input {
+  border: none;
+  outline: none;
+}
+input:focus {
+  outline: none;
+}
+
 nav {
   background-color: #0462BA;
   height: 64px;
@@ -100,6 +108,35 @@ nav .navbar-brand {
 .title-content.section {
   margin-top: 7px;
 }
+.title-content.contacts {
+  height: 42px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: stretch;
+  height: 41px;
+  width: 42%;
+}
+.search-container input {
+  flex-grow: 1;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.search-container .icon-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #0462BA;
+  width: 41px;
+  margin-left: 9px;
+  cursor: pointer;
+}
+.search-container .icon-search, .search-container input {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 3.5px;
+}
 
 .add-button {
   background-color: #0462BA;
@@ -117,6 +154,14 @@ nav .navbar-brand {
 .table {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+.table.contact {
+  margin-top: 75px;
+}
+.table .checkbox {
+  height: 15px;
+  width: 15px;
+  margin: 0 auto;
+}
 .table-header, .table-row {
   height: 56px;
   display: grid;
@@ -126,6 +171,9 @@ nav .navbar-brand {
 }
 .table-header.company, .table-row.company {
   grid-template-columns: 0.75fr 0.8fr 1fr 1fr 100px 120px;
+}
+.table-header.contact, .table-row.contact {
+  grid-template-columns: 56px 1fr 1fr 1fr 1fr 1fr 100px;
 }
 .table-header > *, .table-row > * {
   height: inherit;
@@ -199,6 +247,45 @@ nav .navbar-brand {
 .table span {
   font-weight: 500;
   padding-left: 16px;
+}
+
+.interest {
+  padding-right: 16px;
+}
+.interest .percentage {
+  width: 56px;
+  text-align: right;
+}
+.interest .bar-bg {
+  height: 8px;
+  padding: 0px;
+  border-radius: 4px;
+  flex-grow: 4;
+  background-color: #DDDDDD;
+}
+.interest .bar-bg .progress-25 {
+  height: inherit;
+  border-radius: inherit;
+  width: 25%;
+  background-color: #1CC1F5;
+}
+.interest .bar-bg .progress-50 {
+  height: inherit;
+  border-radius: inherit;
+  width: 50%;
+  background-color: #FFC700;
+}
+.interest .bar-bg .progress-75 {
+  height: inherit;
+  border-radius: inherit;
+  width: 75%;
+  background-color: #FF6F00;
+}
+.interest .bar-bg .progress-100 {
+  height: inherit;
+  border-radius: inherit;
+  width: 100%;
+  background-color: #DE0028;
 }
 
 input {
