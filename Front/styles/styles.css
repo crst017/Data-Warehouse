@@ -110,6 +110,7 @@ nav .navbar-brand {
 }
 .title-content.contacts {
   height: 42px;
+  margin-bottom: 10px;
 }
 
 .search-container {
@@ -155,7 +156,7 @@ nav .navbar-brand {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .table.contact {
-  margin-top: 75px;
+  margin-top: 60px;
 }
 .table .checkbox {
   height: 15px;
@@ -173,7 +174,7 @@ nav .navbar-brand {
   grid-template-columns: 0.75fr 0.8fr 1fr 1fr 100px 120px;
 }
 .table-header.contact, .table-row.contact {
-  grid-template-columns: 56px 1fr 1fr 1fr 1fr 1fr 100px;
+  grid-template-columns: 56px 1.3fr 0.9fr 0.9fr 1.1fr 1.1fr 100px;
 }
 .table-header > *, .table-row > * {
   height: inherit;
@@ -249,12 +250,48 @@ nav .navbar-brand {
   padding-left: 16px;
 }
 
+.contact-info .icon-person {
+  position: relative;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 17px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.contact-info .icon-person:before {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+}
+.contact-info .contact-email {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 11px;
+}
+.contact-info .name-email > span {
+  padding-left: 8px;
+}
+
+.contact-region {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.contact-region span {
+  padding: 0px;
+  padding-left: 16px;
+}
+.contact-region span:nth-child(2) {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 11px;
+}
+
 .interest {
   padding-right: 16px;
 }
 .interest .percentage {
   width: 56px;
-  text-align: right;
+  text-align: left;
 }
 .interest .bar-bg {
   height: 8px;
