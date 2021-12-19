@@ -589,7 +589,7 @@ const contact = {
         try {
             const contacts = await sequelize.query(`
                 SELECT 
-                    contact.first_name, contact.last_name, contact.work_position, contact.interest, 
+                    contact.first_name, contact.last_name, contact.email, contact.work_position, contact.interest, 
                     company.name AS company, 
                     region.name AS region,
                     country.name AS country
