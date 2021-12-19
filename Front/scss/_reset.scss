@@ -36,3 +36,12 @@ button {
 a {
     text-decoration: none;
 }
+
+input {
+    border: none;
+    outline: none;
+
+    &:focus {
+        outline: none;
+    }
+}

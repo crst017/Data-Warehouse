@@ -11,11 +11,41 @@
     &.section {
         margin-top: 7px;
     }
+
+    &.contacts {
+        height: 42px;
+    }
 }
 
-// .company {
+.search-container {
 
-// }
+    display: flex;
+    justify-content: stretch;
+    height: 41px;
+    width: 42%;
+
+    input {
+        flex-grow: 1;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .icon-search {
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        font-size: 24px;
+        color: variables.$blue-headers;
+        width: 41px;
+        margin-left: 9px;
+        cursor: pointer;
+    }
+
+    .icon-search, input {
+        border: 1px solid rgba(0,0,0,0.25);
+        border-radius: 3.5px;
+    }
+}
 
 .add-button {
     background-color: variables.$blue-headers;
@@ -35,6 +65,16 @@
     
     border: 1px solid variables.$gray-border-table;
 
+    &.contact {
+        margin-top: 75px;
+    }
+
+    .checkbox {
+        height: 15px;
+        width: 15px;
+        margin: 0 auto;
+    }
+
     &-header,  &-row{
         height: 56px;
         display: grid;
@@ -44,6 +84,10 @@
         
         &.company {
             grid-template-columns: 0.75fr 0.8fr 1fr 1fr 100px 120px;
+        }
+
+        &.contact {
+            grid-template-columns: 56px 1fr 1fr 1fr 1fr 1fr 100px;
         }
 
         > * {
@@ -134,3 +178,52 @@
         padding-left: 16px
     }
 }
+
+.interest {
+
+    padding-right: 16px;
+
+    .percentage {
+        width: 56px;
+        text-align: right;
+    }
+    
+    .bar-bg {
+        height: 8px;
+        padding: 0px;
+        border-radius: 4px;
+        flex-grow: 4;
+        background-color: #DDDDDD;
+
+        .progress-25 {
+            height: inherit;
+            border-radius: inherit;
+            width: 25%;
+            background-color: variables.$progress-25;
+        }
+
+        .progress-50 {
+            height: inherit;
+            border-radius: inherit;
+            width: 50%;
+            background-color: variables.$progress-50;
+        }
+
+        .progress-75 {
+            height: inherit;
+            border-radius: inherit;
+            width: 75%;
+            background-color: variables.$progress-75;
+        }
+
+        .progress-100 {
+            height: inherit;
+            border-radius: inherit;
+            width: 100%;
+            background-color: variables.$progress-100;
+        }
+    }
+
+    
+}
+
