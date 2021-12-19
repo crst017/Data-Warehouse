@@ -11,6 +11,7 @@ const Contacts = async () => {
 
             const value = section.children[1].children[0].children[0].value;
             const searchResults = await contact.search( value );
+            console.log(searchResults.data);
         }
     };
 
