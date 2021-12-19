@@ -602,7 +602,8 @@ const contact = {
                 WHERE contact.city_id = city.id
                 AND city.country_id = country.id
                 AND country.region_id = region.id 
-                AND contact.company_id = company.id`,
+                AND contact.company_id = company.id
+                ORDER BY contact.interest DESC`,
                 { type: sequelize.QueryTypes.SELECT }
             );
             res.status(200).send(contacts);
@@ -642,7 +643,8 @@ const contact = {
             OR company.name LIKE '%${word}%'
             OR region.name LIKE '%${word}%'
             OR country.name LIKE '%${word}%'
-            )`,
+            )
+            ORDER BY contact.interest DESC`,
             { type: sequelize.QueryTypes.SELECT }
             );
             res.status(200).json(results);
