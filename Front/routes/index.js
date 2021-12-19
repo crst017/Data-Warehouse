@@ -3,16 +3,16 @@ import LogIn from '../pages/LogIn.js';
 import Users from '../pages/Users.js';
 import RegionCity from '../pages/RegionCity.js';
 import Companies from '../pages/Companies.js';
+import Contacts from '../pages/Contacts.js';
 
 import getHash from '../utils/getHash.js';
 
 const routes = {
     '/': LogIn,
-    'home': RegionCity,
+    'home': Contacts,
     'users': Users,
     'region-city': RegionCity,
     'companies': Companies,
-    // '/contact': 'Contact'
 }
 
 const router = async () => {

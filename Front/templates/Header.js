@@ -15,7 +15,7 @@ const Header = () => {
     const menu = `
         <ul class="navbar-nav d-flex flex-row g-0">
             <li class="nav-item">
-                <a class="" href="#contacts">Contactos</a>
+                <a class="" href="#home">Contactos</a>
             </li>
             <li class="nav-item">
                 <a class="" href="#companies">Compañias</a>
