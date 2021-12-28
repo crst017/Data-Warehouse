@@ -544,7 +544,7 @@ const contact = {
         let contact = {};
         try {
             const contactDetails = await sequelize.query(`
-                SELECT contact.first_name, contact.last_name, contact.work_position, contact.email, contact.address, contact.interest, 
+                SELECT contact.id, contact.first_name, contact.last_name, contact.work_position, contact.email, contact.address, contact.interest, 
                         company.name AS company, 
                         region.name AS region,
                         country.name AS country,
@@ -589,10 +589,11 @@ const contact = {
         try {
             const contacts = await sequelize.query(`
                 SELECT 
-                    contact.first_name, contact.last_name, contact.email, contact.work_position, contact.interest, 
+                    contact.id, contact.first_name, contact.last_name, contact.email, contact.work_position, contact.interest, 
                     company.name AS company, 
                     region.name AS region,
-                    country.name AS country
+                    country.name AS country,
+                    city.name AS city
                 FROM    
                     dw_cmnl.contact AS contact, 
                     dw_cmnl.company AS company, 
