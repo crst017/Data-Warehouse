@@ -1,5 +1,8 @@
 import contact from '../utils/handleContacts.js';
 import capitalize from '../utils/capitalize.js';
+import configAlerts from '../utils/configAlerts.js';
+
+import createContactModal from '../templates/CreateContactModal.js';
 
 const Contacts = async () => {
 
@@ -14,6 +17,63 @@ const Contacts = async () => {
             console.log(searchResults.data);
         }
     };
+
+    const openModal = (e) => {     
+        
+        const h2 = document.querySelector('.title-modal');
+
+        if (e.target.tagName === 'BUTTON') {
+            h2.textContent = "Nuevo contacto";
+            // setCompanyFormData();
+        } 
+        else h2.textContent = "Modificar contacto";
+
+        const modal = document.querySelector('.modal-user');
+        modal.classList.add('visible');
+        const closeModalButton = document.querySelector('.close-modal');
+        closeModalButton.onclick = () => modal.classList.remove('visible');
+    };
+
+    const editContact = async (e) => {
+        const contactID = e.target.parentNode.parentNode.id; // Same id as row id (contact id)
+        // document.querySelector('.title-modal').id = contactID; // Passing the id using the title
+        
+        const contactInfo = await contact.get(contactID);
+        // setContactFormData(contactInfo.data);
+        openModal(e);
+    };
+
+    const deleteContact = async (e) => {
+        const contactID = e.target.parentNode.parentNode.id;
+
+        Swal.fire( configAlerts.deleteAlert )
+            .then( async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await contact.delete(contactID);
+                        response.status !== 405 ?
+                            configAlerts.modifyConfirm( 'contacto' , 'eliminado') :
+                            configAlerts.modifyError( 'contacto' , 'eliminar' , response.data.sqlMessage ); // Send string with error info
+                    } catch (error) {
+                        configAlerts.modifyError( 'contacto' , 'eliminado');
+                    }
+                }
+            })
+    };
+
+    const createEdit = () => {
+        const editContactButton = document.createElement('span');
+        editContactButton.classList.add('icon-mode_edit');
+        editContactButton.onclick = editContact;
+        return editContactButton;
+    };
+
+    const createDelete = () => {
+        const deleteContactButton = document.createElement('span');
+        deleteContactButton.classList.add('icon-delete');
+        deleteContactButton.onclick = deleteContact;
+        return deleteContactButton;
+    }
 
     const view = `
         
@@ -91,12 +151,25 @@ const Contacts = async () => {
     const createContactButton = document.createElement('button');
     createContactButton.textContent = 'Agregar contacto';
     createContactButton.classList.add('add-button');
-    // createContactButton.onclick = openModal;
+    createContactButton.onclick = openModal;
 
 
     // Append "add new contact" button and "create contact modal" into their position.
     section.children[1].appendChild(createContactButton);
-    // section.appendChild(createCompanyModal(cities.data));
+    section.appendChild(createContactModal());
+
+    const numberOfContacts = section.children[2].children.length;
+
+    for (let i = 1; i < numberOfContacts ; i++) {
+
+        const actionsContainer = section.children[2].children[i].children[6];
+
+        const deleteCompanyButton =  createDelete();
+        actionsContainer.appendChild(deleteCompanyButton);
+
+        const editCompanyButton = createEdit();
+        actionsContainer.appendChild(editCompanyButton);    
+    };
 
     return section;
 } 
