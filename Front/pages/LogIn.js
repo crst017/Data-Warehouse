@@ -15,7 +15,7 @@ const LogIn = async () => {
     }
 
     let form = document.createElement('form');
-    form.classList.add("card" , "p-4" , "mt-3" ,"col-4");
+    form.classList.add("card" , "p-4" , "mt-5" ,"col-4");
 
     form.innerHTML = `
         <div class="mb-3">
@@ -26,7 +26,7 @@ const LogIn = async () => {
             <label for="inputPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="inputPassword">
         </div>
-        <button type="submit" class="btn btn-primary">Ingresar</button>    
+        <button type="submit" id="login-btn" class="btn btn-primary text-center">Ingresar</button>    
     `;
    
     form.addEventListener( 'submit' , login );

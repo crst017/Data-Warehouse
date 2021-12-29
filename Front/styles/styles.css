@@ -46,6 +46,10 @@ input:focus {
   outline: none;
 }
 
+#login-btn {
+  margin: 8px auto 0px;
+}
+
 nav {
   background-color: #0462BA;
   height: 64px;
