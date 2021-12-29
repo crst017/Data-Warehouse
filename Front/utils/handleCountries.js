@@ -46,6 +46,16 @@ const handleCountries = {
             return error.response;       
         }
     },
+
+    getByParent : async ( id ) => {
+        try {
+            const headers = getToken();  
+            const response = await axios.get( API + allCountries + `/region/${id}` , { headers } );
+            return response
+        } catch ( error ) {
+            return error.response;       
+        }
+    },
     
     delete : async ( id ) => {
         try {
