@@ -273,7 +273,6 @@ nav .navbar-brand {
   flex-direction: column;
 }
 .contact-info .name-email span {
-  flex-grow: 1;
   padding-left: 8px;
 }
 
@@ -353,6 +352,14 @@ input {
   margin: 0 auto;
   border: none;
 }
+.modal-user input, .modal-user select {
+  margin: 10px 0px 2px;
+  padding-left: 10px;
+  padding-right: 15px;
+  height: 35px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+}
 
 .modal-head {
   background-color: #0462BA;
@@ -400,17 +407,6 @@ input {
   padding-right: 16px;
   width: 25%;
 }
-.form-header.row-5 > * {
-  width: 20%;
-}
-.form-header input, .form-header select {
-  margin: 10px 0px 2px;
-  padding-left: 10px;
-  padding-right: 15px;
-  height: 35px;
-  border: 1px solid #CCCCCC;
-  border-radius: 4px;
-}
 
 .form-content {
   background-color: white;
@@ -445,7 +441,7 @@ input {
   justify-content: flex-end;
   position: absolute;
   right: 0px;
-  width: 50%;
+  width: 20%;
   padding-right: calc(2.5% + 16px);
 }
 .form-content .modal-buttons button {
@@ -466,6 +462,81 @@ input {
   background-color: white;
   color: #C35454;
   width: auto;
+}
+.form-content.contact {
+  display: flex;
+  flex-direction: column;
+}
+.form-content.contact .location {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  width: 100%;
+}
+.form-content.contact .location > * {
+  display: flex;
+  flex-direction: column;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.form-content.contact .modal-buttons {
+  width: 100%;
+  position: static;
+  justify-content: flex-end;
+  padding: 0px;
+  padding-top: 40px;
+}
+.form-content .slider-container {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  width: 100%;
+  margin: 10px 0px 2px;
+}
+.form-content .slider-container .slider {
+  appearance: none;
+  padding: 0px;
+  margin: 0px;
+  height: 13px;
+  flex-grow: 1;
+}
+.form-content .slider-container .slider.progress-25 {
+  background-image: linear-gradient(to right, #1CC1F5 calc(var(--value) * 1%), white 0);
+}
+.form-content .slider-container .slider.progress-50 {
+  background-image: linear-gradient(to right, #FFC700 calc(var(--value) * 1%), white 0);
+}
+.form-content .slider-container .slider.progress-75 {
+  background-image: linear-gradient(to right, #FF6F00 calc(var(--value) * 1%), white 0);
+}
+.form-content .slider-container .slider.progress-100 {
+  background-image: linear-gradient(to right, #DE0028 calc(var(--value) * 1%), white 0);
+}
+.form-content .slider-container .slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 19px;
+  height: 19px;
+  border: 1px solid #C6CACC;
+  background-color: white;
+  border-radius: 42%;
+  cursor: pointer;
+}
+.form-content .slider-container span {
+  margin-left: 4px;
+  display: flex;
+  justify-content: flex-end;
+  width: 35px;
+}
+
+.row-5 > div {
+  width: 20%;
+}
+
+.row-5-19 > div {
+  width: 19%;
+}
+.row-5-19 > div:nth-last-child(1) {
+  flex-grow: 1;
 }
 
 .red-asterisk {

@@ -26,6 +26,16 @@ input {
         margin: 0 auto;
         border: none;
     }
+
+    input, select {
+
+        margin: 10px 0px 2px;
+        padding-left: 10px;
+        padding-right: 15px;
+        height: 35px;
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+    }
 }
 
 .modal-head {
@@ -81,19 +91,6 @@ input {
         width: 25%;
     }
 
-    &.row-5 > * {
-        width: 20%;
-    }
-
-    input, select {
-
-        margin: 10px 0px 2px;
-        padding-left: 10px;
-        padding-right: 15px;
-        height: 35px;
-        border: 1px solid #CCCCCC;
-        border-radius: 4px;
-    }
 }
 
 .form-content {
@@ -125,7 +122,7 @@ input {
 
     div {
         width: 25%;
-    }
+    }   
 
     .modal-buttons {
         display: flex;
@@ -133,9 +130,9 @@ input {
         justify-content: flex-end;
         position: absolute;
         right: 0px;
-        width: 50%;
+        width: 20%;
         padding-right: calc(2.5% + 16px);
-
+        
         button {
             border: none;
             cursor: pointer;
@@ -157,6 +154,100 @@ input {
                 width: auto;
             }
         }
+    }
+
+    &.contact {
+
+        display: flex;
+        flex-direction: column;
+
+        .location  {
+            display: flex;
+            flex-direction: row;
+            padding: 0px;
+            width: 100%;
+
+            > * {
+                display: flex;
+                flex-direction: column;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+
+        .modal-buttons {
+            width: 100%;
+            position: static;
+            justify-content: flex-end;
+            padding: 0px;
+            padding-top: 40px;
+        }
+    }
+
+    .slider-container {
+
+        display: flex;
+        align-items: center;
+        height: 35px;
+        width: 100%;
+        margin: 10px 0px 2px;
+
+        .slider {
+            appearance: none;
+            padding: 0px;
+            margin: 0px;
+            height: 13px;
+            flex-grow: 1;
+
+            &.progress- {
+                
+                &25 {
+                    background-image: linear-gradient(to right, variables.$progress-25 calc(var(--value)*1%), white 0);
+                }
+
+                &50 {
+                    background-image: linear-gradient(to right, variables.$progress-50 calc(var(--value)*1%), white 0);
+                }
+
+                &75 {
+                    background-image: linear-gradient(to right, variables.$progress-75 calc(var(--value)*1%), white 0);
+                }
+
+                &100 {
+                    background-image: linear-gradient(to right, variables.$progress-100 calc(var(--value)*1%), white 0);
+                }
+
+            }
+
+            &::-webkit-slider-thumb {
+                appearance: none;
+                width: 19px;
+                height: 19px;
+                border: 1px solid #C6CACC;
+                background-color: white;
+                border-radius: 42%;
+                cursor: pointer;
+            }
+        }
+
+        span {
+            margin-left: 4px;
+            display: flex;
+            justify-content: flex-end;
+            width: 35px;
+        }
+    }
+}
+
+.row-5 > div {
+    width: 20%;
+}
+
+.row-5-19 > div {
+    width: 19%;
+
+    &:nth-last-child(1) {
+        flex-grow: 1;
     }
 }
 
