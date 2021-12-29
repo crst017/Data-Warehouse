@@ -34,6 +34,7 @@ app.get( '/user/:id', verify.admin, crud.user.getUser );
 //City endpoints
 app.get ( '/city/:id' , crud.city.getCity );
 app.get ( '/cities' , crud.city.getCities );
+app.get ( '/cities/country/:id' , crud.city.getCitiesByCountryID );
 app.post ( '/city' , crud.city.createCity );
 app.put ( '/city/:id' , crud.city.updateCity );
 app.delete ( '/city/:id' , crud.city.deleteCity)
@@ -41,6 +42,7 @@ app.delete ( '/city/:id' , crud.city.deleteCity)
 //Country endpoints
 app.get ( '/country/:id' , crud.country.getCountry );
 app.get ( '/countries' , crud.country.getCountries );
+app.get ( '/countries/region/:id' , crud.country.getCountriesByRegionID );
 app.post ( '/country' , crud.country.createCountry );
 app.put ( '/country/:id' , crud.country.updateCountry );
 app.delete ( '/country/:id' , crud.country.deleteCountry );

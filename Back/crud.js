@@ -147,6 +147,17 @@ const city = {
         });
         res.status(200).json(city[0]);
     },
+    getCitiesByCountryID : async ( req, res) => {
+        
+        const countryID = req.params.id;
+        const verifyID = await existingID( countryID, "dw_cmnl.country");
+        if ( !verifyID ) res.status(404).send('The country ID does not exist');
+
+        const cities = await sequelize.query( `SELECT * FROM city WHERE country_id = ${countryID}`, {
+                type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(cities);
+    },
     getCities : async ( req, res) => {
         
         const cities = await sequelize.query("SELECT * FROM city ORDER BY name", { 
@@ -210,6 +221,17 @@ const country = {
                 type: sequelize.QueryTypes.SELECT
         });
         res.status(200).json(country[0]);
+    },
+    getCountriesByRegionID : async ( req, res) => {
+        
+        const regionID = req.params.id;
+        const verifyID = await existingID( regionID, "dw_cmnl.region");
+        if ( !verifyID ) res.status(404).send('The country ID does not exist');
+
+        const countries = await sequelize.query( `SELECT * FROM country WHERE region_id = ${regionID}`, {
+                type: sequelize.QueryTypes.SELECT
+        });
+        res.status(200).json(countries);
     },
     getCountries : async ( req, res) => {
         
