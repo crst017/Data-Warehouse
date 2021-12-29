@@ -54,7 +54,7 @@ const createCompanyModal = ( cities ) => {
     const modal = `
         <div class="modal-head">
             <h2 class="title-modal">Nuevo usuario</h2>
-            <a class="close-modal icon-close" href="#region-city"></a>
+            <a class="close-modal icon-close" href="#companies"></a>
         </div>
 
         <form action="" class="modal-cont">
