@@ -588,7 +588,8 @@ const contact = {
 
             const contactChannels = await sequelize.query(`
             SELECT 
-            channel.name AS channel,
+                channel.id AS channel_id,
+                channel.name AS channel,
                 channel_detail.data,
                 channel_detail.preference
             FROM 
